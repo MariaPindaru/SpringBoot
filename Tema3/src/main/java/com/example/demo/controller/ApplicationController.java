@@ -1,7 +1,8 @@
-package com.example.tema3.controller;
+package com.example.demo.controller;
 
-import com.example.tema3.service.UserService;
-import com.example.tema3.service.security.SecurityService;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import com.example.demo.service.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,24 +26,6 @@ public class ApplicationController {
         this.securityService = securityService;
         this.userValidator = userValidator;
     }
-
-//    /***
-//     * @param model supply attributes used for rendering views
-//     * @param principal is the currently logged in user
-//     * @return what view to use
-//     */
-//    @GetMapping("/receipts")
-//    public String showTable(Model model, Principal principal) {
-//        User user = userService.findByUsername(principal.getName());
-//
-//        System.out.println("THE CURRENT USER " + principal.getName());
-//        List<Receipt> receipts = receiptService.getReceiptsByUser(user);
-//
-//        model.addAttribute("receipts", receipts);
-//        return "receipts";
-//    }
-//
-//
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {

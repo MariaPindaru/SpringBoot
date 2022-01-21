@@ -1,4 +1,4 @@
-package com.example.tema3.model;
+package com.example.demo.model;
 
 import lombok.*;
 
@@ -7,16 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@AllArgsConstructor @NoArgsConstructor @Builder
 @Entity
 @Table(name = "user", schema = "public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Long id;
     @Getter @Setter
     private String username;

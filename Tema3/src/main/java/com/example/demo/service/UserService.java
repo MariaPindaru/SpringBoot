@@ -1,6 +1,7 @@
-package com.example.tema3.service;
+package com.example.demo.service;
 
-import com.example.tema3.model.User;
+import com.example.demo.model.User;
+
 
 public interface UserService {
     void save(User user);

@@ -1,22 +1,17 @@
-package com.example.tema3.model;
-
+package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@AllArgsConstructor @NoArgsConstructor @Builder
 @Entity
 @Table(name = "role", schema = "public")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
+    @Getter @Setter
     private Long id;
 
     @Getter @Setter

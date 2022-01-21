@@ -1,4 +1,4 @@
-package com.example.tema3.service.security;
+package com.example.demo.service.security;
 
 public interface SecurityService {
     boolean isAuthenticated();

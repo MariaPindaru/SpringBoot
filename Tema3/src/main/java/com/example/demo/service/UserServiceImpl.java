@@ -1,8 +1,8 @@
-package com.example.tema3.service;
+package com.example.demo.service;
 
-import com.example.tema3.dao.role.RoleRepository;
-import com.example.tema3.dao.user.UserRepository;
-import com.example.tema3.model.User;
+import com.example.demo.dao.role.RoleRepository;
+import com.example.demo.dao.user.UserRepository;
+import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        user.setRole(roleRepository.findB);
+        //user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
 

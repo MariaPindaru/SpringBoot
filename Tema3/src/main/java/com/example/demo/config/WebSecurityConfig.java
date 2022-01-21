@@ -1,4 +1,5 @@
-package com.example.tema3.config;
+package com.example.demo.config;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,18 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Bean
-    public static BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -30,18 +30,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .antMatchers("/css/**", "/js/**", "/registration").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
+                    .loginPage("/login")
+                    .permitAll()
+                    .and()
 /*                .csrf()
                 .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
                     .and()*/
                 .logout()
-                .permitAll();
+                    .permitAll();
     }
 
     @Bean
