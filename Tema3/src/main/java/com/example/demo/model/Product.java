@@ -17,9 +17,13 @@ public class Product {
     @Setter
     private Long id;
 
-    @Getter
-    @Setter
+    @Getter @Setter
     private String name;
+
+    @Getter @Setter
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
 
     @Getter @Setter
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
