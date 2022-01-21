@@ -32,4 +32,6 @@ public class User {
     @Getter
     @Setter
     private Role role;
+
+
 }

@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,11 +29,11 @@ public class ApplicationController {
         this.userValidator = userValidator;
     }
 
-    @GetMapping("/login")
+    @GetMapping({"/","/login"})
     public String login(Model model, String error, String logout) {
-        if (securityService.isAuthenticated()) {
-            return "redirect:/";
-        }
+//        if (securityService.isAuthenticated()) {
+//            return "redirect:/";
+//        }
 
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -42,8 +44,19 @@ public class ApplicationController {
         return "login";
     }
 
-    @GetMapping({"/", "/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
+    @GetMapping("/producerDashboard")
+    public ModelAndView producerDashboard() {
+        return new ModelAndView("producerDashboard");
     }
+
+    @GetMapping("/traderDashboard")
+    public ModelAndView traderDashboard() {
+        return new ModelAndView("traderDashboard");
+    }
+
+    @GetMapping("/clientDashboard")
+    public ModelAndView clientDashboard() {
+        return new ModelAndView("clientDashboard");
+    }
+
 }
