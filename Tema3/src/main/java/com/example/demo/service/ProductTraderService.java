@@ -9,7 +9,7 @@ public interface ProductTraderService {
 
     public List<ProductTrader> getProducts();
 
-    public List<ProductTrader> getProductsByTrader(User user);
+    public List<ProductTrader> getProductsByTraderId(Long id);
 
     public void save(ProductTrader productTrader);
 }

@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ProductTrader;
+import com.example.demo.model.User;
 import com.example.demo.service.ProductTraderService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +19,12 @@ import java.util.List;
 public class TraderController {
 
     private final ProductTraderService productTraderService;
+    private final UserService userService;
 
     @Autowired
-    public TraderController(ProductTraderService productTraderService) {
+    public TraderController(ProductTraderService productTraderService, UserService userService) {
         this.productTraderService = productTraderService;
+        this.userService = userService;
     }
 
     @GetMapping("/dashboard")
@@ -35,15 +39,12 @@ public class TraderController {
 
     @GetMapping("/all")
     public String viewProducts(Model model, Principal principal) {
-       // User user = userService.findByUsername(principal.getName());
+        User user = userService.findByUsername(principal.getName());
 
         System.out.println("THE CURRENT USER " + principal.getName());
-        List<ProductTrader> products = productTraderService.getProducts();
+        List<ProductTrader> products = productTraderService.getProductsByTraderId(user.getId());
 
         model.addAttribute("products", products);
-
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-        System.out.println(products.get(0).getTrader().getUsername());
 
         return "traderViewProducts";
     }

@@ -26,8 +26,8 @@ public class ProductTraderServiceImpl implements ProductTraderService {
     }
 
     @Override
-    public List<ProductTrader> getProductsByTrader(User user) {
-        return this.productTraderRepository.findAll(); //ByUser(user);
+    public List<ProductTrader> getProductsByTraderId(Long id) {
+        return this.productTraderRepository.findAllByUserId(id);
     }
 
     @Override
