@@ -6,7 +6,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:fragment="header">
-    <title>Title</title>
+    <title>heehee</title>
 
     <!-- Bootstrap theme -->
     <!-- Required meta tags -->
@@ -59,19 +59,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent2">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/traderDashboard}">Home</a>
+                    <a class="nav-link" th:href="@{/trader/dashboard}">Home</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Add product</a>
+                    <a class="nav-link" th:href="@{/trader/add}">Add product</a>
                 </li>
-
-                <li class="nav-item">
-                    <form id="logoutForm2" method="POST" th:action="@{/logout}">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
-                    <a class="nav-link" onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <form id="logoutForm2" method="POST" th:action="@{/logout}">-->
+<!--                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+<!--                    </form>-->
+<!--                    <a class="nav-link" onclick="document.forms['logoutForm2'].submit()">Logout</a></h2>-->
+<!--                </li>-->
 
             </ul>
         </div>

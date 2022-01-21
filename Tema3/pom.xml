@@ -88,6 +88,7 @@
             <artifactId>bootstrap</artifactId>
             <version>${bootstrap.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

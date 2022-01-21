@@ -28,15 +28,15 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             String role = grantedAuthority.getAuthority();
             switch (role){
                 case "producer":
-                    redirectUrl = "/producerDashboard";
+                    redirectUrl = "/producer/dashboard";
                     break;
 
                 case "trader":
-                    redirectUrl = "/traderDashboard";
+                    redirectUrl = "/trader/dashboard";
                     break;
 
                 case "client":
-                    redirectUrl = "/clientDashboard";
+                    redirectUrl = "/client/dashboard";
                     break;
             }
         }
