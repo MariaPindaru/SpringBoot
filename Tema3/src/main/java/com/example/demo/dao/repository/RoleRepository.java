@@ -1,4 +1,4 @@
-package com.example.demo.dao.role;
+package com.example.demo.dao.repository;
 
 import com.example.demo.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
