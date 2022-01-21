@@ -13,18 +13,23 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter @Setter
+    @Getter
+    @Setter
     private Long id;
-    @Getter @Setter
+    @Getter
+    @Setter
     private String username;
-    @Getter @Setter
+    @Getter
+    @Setter
     private String password;
 
-    @Transient
-    @Getter @Setter
-    private String passwordConfirm;
+    @Getter
+    @Setter
+    private String name;
 
-    @OneToOne
-    @Getter @Setter
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @Getter
+    @Setter
     private Role role;
 }

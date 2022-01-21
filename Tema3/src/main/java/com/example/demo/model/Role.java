@@ -19,6 +19,6 @@ public class Role {
 
     @JsonBackReference
     @Getter @Setter
-    @OneToMany
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> users;
 }
