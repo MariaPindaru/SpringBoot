@@ -1,4 +1,4 @@
-package com.example.demo.service.security;
+package com.example.demo.service;
 
 public interface SecurityService {
     boolean isAuthenticated();

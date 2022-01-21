@@ -39,13 +39,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                     redirectUrl = "/clientDashboard";
                     break;
             }
-//            if (grantedAuthority.getAuthority().equals("client")) {
-//                redirectUrl = "/clientDashboard";
-//                break;
-//            } else if (grantedAuthority.getAuthority().equals("producer")) {
-//                redirectUrl = "/producerDashboard";
-//                break;
-//            }
         }
         System.out.println("redirectUrl " + redirectUrl);
         if (redirectUrl == null) {
