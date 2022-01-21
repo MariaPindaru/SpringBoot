@@ -16,9 +16,11 @@ public class User {
     @Getter
     @Setter
     private Long id;
+
     @Getter
     @Setter
     private String username;
+
     @Getter
     @Setter
     private String password;
@@ -33,5 +35,18 @@ public class User {
     @Setter
     private Role role;
 
+    // PRODUCER
+    @Getter @Setter
+    @OneToMany(mappedBy = "producer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ProductProducer> productProducers;
 
+    // TRADER
+    @Getter @Setter
+    @OneToMany(mappedBy = "trader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ProductTrader> productTraders;
+
+    // ORDER
+//    @Getter @Setter
+//    @OneToMany(mappedBy = "trader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<ProductTrader> productTraders;
 }

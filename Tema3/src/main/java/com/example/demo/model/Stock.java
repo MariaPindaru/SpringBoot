@@ -3,14 +3,13 @@ package com.example.demo.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "product", schema = "public")
-public class Product {
+@Table(name = "stock", schema = "public")
+public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
@@ -19,9 +18,15 @@ public class Product {
 
     @Getter
     @Setter
-    private String name;
+    private Double maxQuantity;
 
-    @Getter @Setter
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<ProductProducer> productProducers;
+    @Getter
+    @Setter
+    private Double minQuantity;
+
+    @Getter
+    @Setter
+    private Double quantity;
+
+
 }

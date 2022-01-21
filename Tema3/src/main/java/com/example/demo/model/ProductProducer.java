@@ -25,7 +25,14 @@ public class ProductProducer {
     @Setter
     private Double price;
 
-//    @Getter @Setter
-//    @ManyToOne(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private User producer;
+    @Getter @Setter
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
+    @Getter @Setter
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User producer;
+
 }
