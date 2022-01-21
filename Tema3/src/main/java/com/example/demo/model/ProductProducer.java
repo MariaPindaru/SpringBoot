@@ -19,10 +19,6 @@ public class ProductProducer {
 
     @Getter
     @Setter
-    private String name;
-
-    @Getter
-    @Setter
     private Double price;
 
     @Getter @Setter
@@ -32,7 +28,7 @@ public class ProductProducer {
 
     @Getter @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "producer_id", referencedColumnName = "id")
     private User producer;
 
 }

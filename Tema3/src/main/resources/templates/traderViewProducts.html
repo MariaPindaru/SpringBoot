@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/components::header">
+<body>
+<div th:replace="fragments/components::menu_trader"></div>
+
+<div class="container mt-1">
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <h2 class="form-heading text-center">Products</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th> Name</th>
+                <th> Trader</th>
+                <th> Current quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${products.isEmpty()}">
+                <td colspan="2"> No Receipts Available</td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td><span th:text="${product?.product.product.name}"> Name </span></td>
+                <td><span th:text="${product?.trader.name}"> Trader </span></td>
+                <td><span th:text="${product?.stock.quantity}"> Current quantity </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:include="fragments/components::bootstrap_script"/>
+
+</body>
+</html>

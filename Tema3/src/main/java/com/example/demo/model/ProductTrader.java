@@ -14,7 +14,7 @@ public class ProductTrader {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private Long id;
+    public Long id;
 
     @Getter @Setter
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -23,7 +23,7 @@ public class ProductTrader {
 
     @Getter @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "trader_id", referencedColumnName = "id")
     private User trader;
 
     @Getter @Setter

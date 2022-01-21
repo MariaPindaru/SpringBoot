@@ -23,11 +23,11 @@
 
     <dependencies>
         <!-- We need this dependency for authorization.expression -->
-        <dependency>
-            <groupId>org.thymeleaf.extras</groupId>
-            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
-            <version>3.0.1.RELEASE</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.thymeleaf.extras</groupId>-->
+<!--            <artifactId>thymeleaf-extras-springsecurity4</artifactId>-->
+<!--            <version>3.0.1.RELEASE</version>-->
+<!--        </dependency>-->
 
         <!-- Postgres driver -->
         <dependency>
@@ -35,6 +35,7 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+
         <!-- Lombok reduce boilerplate code (getters, setters etc.) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -56,6 +57,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- SPRING BOOT SECURITY -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -70,6 +72,7 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
         </dependency>
+
         <!-- java spring boot for jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
