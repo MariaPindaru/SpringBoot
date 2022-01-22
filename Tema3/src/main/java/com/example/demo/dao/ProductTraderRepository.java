@@ -1,4 +1,4 @@
-package com.example.demo.dao.repository;
+package com.example.demo.dao;
 
 import com.example.demo.model.ProductTrader;
 import com.example.demo.model.User;

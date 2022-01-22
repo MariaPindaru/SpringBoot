@@ -14,12 +14,12 @@ public class ProductTrader {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    public Long id;
+    private Long id;
 
     @Getter @Setter
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_producer_id", referencedColumnName = "id")
-    private ProductProducer product;
+    private ProductProducer productProducer;
 
     @Getter @Setter
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

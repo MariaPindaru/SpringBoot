@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head th:include="fragments/components::header">
 <body>
 <div th:replace="fragments/components::menu_trader"></div>
@@ -13,6 +13,8 @@
                 <th> Name</th>
                 <th> Trader</th>
                 <th> Current quantity</th>
+                <th> Max quantity</th>
+                <th> Min quantity</th>
             </tr>
             </thead>
             <tbody>
@@ -20,9 +22,11 @@
                 <td colspan="2"> No Receipts Available</td>
             </tr>
             <tr th:each="product : ${products}">
-                <td><span th:text="${product?.product.product.name}"> Name </span></td>
-                <td><span th:text="${product?.trader.name}"> Trader </span></td>
-                <td><span th:text="${product?.stock.quantity}"> Current quantity </span></td>
+                <td><span th:text="${product?.product}"> Name </span></td>
+                <td><span th:text="${product?.trader}"> Trader </span></td>
+                <td><span th:text="${product?.quantity}"> Current quantity </span></td>
+                <td><span th:text="${product?.maxQuantity}"> Max quantity </span></td>
+                <td><span th:text="${product?.minQuantity}"> Min quantity </span></td>
             </tr>
             </tbody>
         </table>
