@@ -46,7 +46,7 @@ public class User {
     private Set<ProductTrader> productTraders;
 
     // ORDER
-//    @Getter @Setter
-//    @OneToMany(mappedBy = "trader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<ProductTrader> productTraders;
+    @Getter @Setter
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Order> productOrders;
 }

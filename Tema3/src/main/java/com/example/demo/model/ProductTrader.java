@@ -3,6 +3,7 @@ package com.example.demo.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,4 +31,8 @@ public class ProductTrader {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "stock_id", referencedColumnName = "id")
     private Stock stock;
+
+    @Getter @Setter
+    @OneToMany(mappedBy = "productTrader", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ProductOrder> productOrders;
 }

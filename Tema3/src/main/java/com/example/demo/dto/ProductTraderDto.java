@@ -53,11 +53,11 @@ public class ProductTraderDto {
         this.trader = trader;
     }
 
-    public String getProduct() {
+    public String getProductName() {
         return productName;
     }
 
-    public void setProduct(String product) {
+    public void setProductName(String product) {
         this.productName = product;
     }
 

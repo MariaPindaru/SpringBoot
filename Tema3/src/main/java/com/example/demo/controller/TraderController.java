@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Utils.Utils;
 import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.dto.ProductTraderCreationDto;
 import com.example.demo.dto.ProductTraderDto;
@@ -74,7 +75,7 @@ public class TraderController {
         }
 
         List<ProductProducerDto> list = remainingProducts.stream()
-                .map(this::convertToProductProducerDto)
+                .map(o -> Utils.convertToProductProducerDto(o, modelMapper))
                 .collect(Collectors.toList());
 
         model.addAttribute("products", list);
@@ -100,7 +101,7 @@ public class TraderController {
         Stock stock = new Stock();
         stock.setQuantity(creationObject.getBuyQuantity());
         stock.setMinQuantity(creationObject.getMinQuantity());
-        stock.setMinQuantity(creationObject.getMinQuantity());
+        stock.setMaxQuantity(creationObject.getMaxQuantity());
         stockService.save(stock);
 
         ProductTrader productTrader = new ProductTrader();
@@ -119,49 +120,11 @@ public class TraderController {
         List<ProductTrader> products = productTraderService.getProductsByTraderId(user.getId());
 
         List<ProductTraderDto> list = products.stream()
-                .map(this::convertToProductTraderDto)
+                .map(o -> Utils.convertToProductTraderDto(o, modelMapper))
                 .collect(Collectors.toList());
 
         model.addAttribute("products", list);
 
         return "traderViewProducts";
-    }
-
-    private ProductTraderDto convertToProductTraderDto(ProductTrader productTrader) {
-
-        TypeMap<ProductTrader, ProductTraderDto> propertyMapper = this.modelMapper.getTypeMap(ProductTrader.class, ProductTraderDto.class);
-
-        if (propertyMapper == null) {
-            propertyMapper = this.modelMapper.createTypeMap(ProductTrader.class, ProductTraderDto.class);
-            propertyMapper.addMappings(mapper -> {
-//            mapper.map(src -> src.getId(), ProductTraderDto::setId);
-                mapper.map(src -> src.getTrader().getName(), ProductTraderDto::setTrader);
-                mapper.map(src -> src.getProductProducer().getProducer().getName(), ProductTraderDto::setProducer);
-                mapper.map(src -> src.getProductProducer().getProduct().getName(), ProductTraderDto::setProduct);
-                mapper.map(src -> src.getProductProducer().getPrice(), ProductTraderDto::setPrice);
-                mapper.map(src -> src.getStock().getQuantity(), ProductTraderDto::setQuantity);
-                mapper.map(src -> src.getStock().getMaxQuantity(), ProductTraderDto::setMaxQuantity);
-                mapper.map(src -> src.getStock().getMinQuantity(), ProductTraderDto::setMinQuantity);
-            });
-        }
-
-        return modelMapper.map(productTrader, ProductTraderDto.class);
-    }
-
-    private ProductProducerDto convertToProductProducerDto(ProductProducer productProducer) {
-
-        TypeMap<ProductProducer, ProductProducerDto> propertyMapper = this.modelMapper.getTypeMap(ProductProducer.class, ProductProducerDto.class);
-
-        if (propertyMapper == null) {
-            propertyMapper = this.modelMapper.createTypeMap(ProductProducer.class, ProductProducerDto.class);
-            propertyMapper.addMappings(mapper -> {
-//            mapper.map(src -> src.getId(), ProductProducerDto::setId);
-                mapper.map(src -> src.getProducer().getName(), ProductProducerDto::setProducer);
-                mapper.map(src -> src.getProduct().getName(), ProductProducerDto::setProductName);
-//            mapper.map(src -> src.getPrice(), ProductProducerDto::setPrice);
-            });
-        }
-
-        return modelMapper.map(productProducer, ProductProducerDto.class);
     }
 }

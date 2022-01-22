@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head th:include="fragments/components::header">
 <body>
-<div th:replace="fragments/components::menu_trader"></div>
+<div th:replace="fragments/components::menu_client"></div>
 
 <div class="container mt-1">
     <div class="shadow p-3 mb-5 bg-body rounded">
@@ -12,21 +12,17 @@
             <tr>
                 <th> Name</th>
                 <th> Trader</th>
-                <th> Current quantity</th>
-                <th> Max quantity</th>
-                <th> Min quantity</th>
+                <th> Price </th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${products.isEmpty()}">
-                <td colspan="2"> No Receipts Available</td>
+                <td colspan="2"> No Products Available</td>
             </tr>
             <tr th:each="product : ${products}">
                 <td><span th:text="${product?.productName}"> Name </span></td>
                 <td><span th:text="${product?.trader}"> Trader </span></td>
                 <td><span th:text="${product?.quantity}"> Current quantity </span></td>
-                <td><span th:text="${product?.maxQuantity}"> Max quantity </span></td>
-                <td><span th:text="${product?.minQuantity}"> Min quantity </span></td>
             </tr>
             </tbody>
         </table>
