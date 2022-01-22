@@ -1,28 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org"
->
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head th:include="fragments/components::header">
 <body>
 <div th:replace="fragments/components::menu_trader"></div>
 
 <div class="container mt-1">
     <div class="shadow p-3 mb-5 bg-body rounded">
-        <h2 class="form-heading text-center">Add products</h2>
+        <h2 class="form-heading text-center">Buy products</h2>
 
         <div class="container" style="width: 50%; margin-top: 20px; margin-inside: 10px;">
-            <select class="form-control" id="newProduct" name="newProduct">
-                <option value="">Select product</option>
-                <option th:each="product : ${products}"
-                        th:value="${product?.id}"
-                        th:text="${product?.productName}"></option>
-            </select>
 
-            <input type="number" name="max_limit" aria-label="Max limit">
+            <form th:action="@{/trader/add}" th:object="${productTraderCreationDto}" th:method="post">
+                <div class="form-group">
+                    <div class="form-floating mb-3">
+                        <select  class="form-control" id="selected" name="productProducerId">
+                            <option value="">Click to select a product</option>
+                            <option th:each="product : ${products}"
+                                    th:value="${product?.id}"
+                                    th:text="${product?.productName + ' - ' + product?.producer + ' (' + product?.price + ')'}"></option>
+                        </select>
+                        <label for="min">Product</label>
+
+                        <span class="has-error" th:if="${#fields.hasErrors('productProducerId')}" th:errors="*{productProducerId}"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input id="min"
+                               name="minQuantity"
+                               type="number"
+                               class="form-control"
+                               placeholder="Min quantity"
+                               autofocus="true"/>
+                        <label for="min">Min quantity</label>
+                        <span class="has-error" th:if="${#fields.hasErrors('minQuantity')}" th:errors="*{minQuantity}"></span>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input id="max"
+                               name="maxQuantity"
+                               type="number"
+                               class="form-control"
+                               placeholder="Max quantity"
+                               autofocus="true"/>
+                        <label for="max">Max quantity</label>
+                        <span class="has-error" th:if="${#fields.hasErrors('maxQuantity')}" th:errors="*{maxQuantity}"></span>
+
+                    </div>
+
+
+                    <div class="form-floating mb-3">
+                        <input id="buy"
+                               name="buyQuantity"
+                               type="number"
+                               class="form-control"
+                               placeholder="Buy quantity"
+                               autofocus="true"/>
+                        <label for="max">Buy quantity</label>
+                        <span class="has-error" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
+
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                                type="submit">
+                            Buy
+                        </button>
+
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
-</div>
 
-<div th:include="fragments/components::bootstrap_script"/>
+    <div th:include="fragments/components::bootstrap_script"/>
 
 </body>
 </html>

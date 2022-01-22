@@ -31,6 +31,6 @@ public class ProductTraderServiceImpl implements ProductTraderService {
 
     @Override
     public void save(ProductTrader productTrader) {
-
+        this.productTraderRepository.save(productTrader);
     }
 }
