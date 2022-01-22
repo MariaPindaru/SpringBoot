@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://thymeleaf.org"
+>
 <head th:include="fragments/components::header">
 <body>
 <div th:replace="fragments/components::menu_trader"></div>
@@ -9,12 +9,16 @@
     <div class="shadow p-3 mb-5 bg-body rounded">
         <h2 class="form-heading text-center">Add products</h2>
 
-        <select class="form-control" id="newProduct" name="newProduct">
-            <option value="">Select product</option>
-            <option th:each="product : ${products}"
-                    th:value="${product.getProduct().getName()}"
-                    th:text="${product.getProduct().getName()}"></option>
-        </select>
+        <div class="container" style="width: 50%; margin-top: 20px; margin-inside: 10px;">
+            <select class="form-control" id="newProduct" name="newProduct">
+                <option value="">Select product</option>
+                <option th:each="product : ${products}"
+                        th:value="${product?.id}"
+                        th:text="${product?.productName}"></option>
+            </select>
+
+            <input type="number" name="max_limit" aria-label="Max limit">
+        </div>
     </div>
 </div>
 
