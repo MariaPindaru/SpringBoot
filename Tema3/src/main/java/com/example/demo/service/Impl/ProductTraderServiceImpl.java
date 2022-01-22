@@ -21,7 +21,7 @@ public class ProductTraderServiceImpl implements ProductTraderService {
 
 
     @Override
-    public List<ProductTrader> getProducts() {
+    public List<ProductTrader> getAllTraderProducts() {
         return this.productTraderRepository.findAll();
     }
 

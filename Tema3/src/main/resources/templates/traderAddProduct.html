@@ -9,11 +9,11 @@
     <div class="shadow p-3 mb-5 bg-body rounded">
         <h2 class="form-heading text-center">Add products</h2>
 
-        <select class="form-control" id="testOrder" name="testOrder">
-            <option value="">Select Test Order</option>
-<!--            <option th:each="test : ${tests}"-->
-<!--                    th:value="${test.testCode}"-->
-<!--                    th:text="${test.testCode}+' : '+${test.testName}"></option>-->
+        <select class="form-control" id="newProduct" name="newProduct">
+            <option value="">Select product</option>
+            <option th:each="product : ${products}"
+                    th:value="${product.getProduct().getName()}"
+                    th:text="${product.getProduct().getName()}"></option>
         </select>
     </div>
 </div>

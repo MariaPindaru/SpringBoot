@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductTraderService {
 
-    public List<ProductTrader> getProducts();
+    public List<ProductTrader> getAllTraderProducts();
 
     public List<ProductTrader> getProductsByTraderId(Long id);
 
