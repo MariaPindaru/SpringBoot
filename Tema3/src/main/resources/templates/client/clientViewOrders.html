@@ -9,8 +9,8 @@
         <h2 class="form-heading text-center">Order history</h2>
 
         <div class="row" style="margin-top: 30px">
-            <div th:each="order, stat : ${orders}" class="col d-flex justify-content-center" >
-                <div class="card" style="width: 50%">
+            <div th:each="order, stat : ${orders}" >
+                <div class="card" style="margin: 10px;">
 
                     <div class="card-body" >
                         <h5 class="card-title" th:text="${'Order ' + order.orderId}"> Order </h5>

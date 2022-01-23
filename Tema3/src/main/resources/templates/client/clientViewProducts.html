@@ -57,44 +57,46 @@
         <div class="row" style="margin-top: 20px">
             <form th:action="@{/addToCart}" method="post">
 
-                <div th:each="product, i: ${products}" class="col-sm-4">
-                    <input name="id" th:value="${product.id}" type="hidden">
-                    
-                    <div class="card">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                    <div th:each="product, i: ${products}">
+                        <input name="id" th:value="${product.id}" type="hidden">
 
-                        <div class="card-body">
+                        <div class="card" style="margin: 10px;">
 
-                            <h5 lass="card-title form-control" th:text="${product.productName}"> Product name </h5>
+                            <div class="card-body">
 
-                            <p class="card-text" th:text="${'trader: ' +product.trader}">Trader</p>
-                            <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
-                            <p class="card-text" th:text="${'quantity available: ' +product.quantity}">Price</p>
+                                <h5 lass="card-title form-control" th:text="${product.productName}"> Product name </h5>
 
-                            <div class="row" style="width: 50%">
-                                <div class="column">
-                                    <div class="form-floating">
-                                        <input id="quantity"
-                                               name="quantity"
-                                               type="number"
-                                               value="1"
-                                               class="form-control"
-                                               placeholder="1"/>
-                                        <label for="quantity">Quantity</label>
+                                <p class="card-text" th:text="${'trader: ' +product.trader}">Trader</p>
+                                <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
+                                <p class="card-text" th:text="${'quantity available: ' +product.quantity}">Price</p>
+
+                                <div class="row">
+                                    <div class="column">
+                                        <div class="form-floating">
+                                            <input id="quantity"
+                                                   name="quantity"
+                                                   type="number"
+                                                   value="1"
+                                                   class="form-control"
+                                                   placeholder="1"/>
+                                            <label for="quantity">Quantity</label>
+                                        </div>
+                                    </div>
+                                    <div class="column" style="margin-top: 10px;">
+                                        <button type="submit" class="btn btn-primary">Buy</button>
                                     </div>
                                 </div>
-                                <div class="column">
-                                    <button type="submit" class="btn btn-primary">Buy</button>
-                                </div>
+
                             </div>
 
                         </div>
 
                     </div>
-
-                </div>
             </form>
         </div>
     </div>
+</div>
 </div>
 
 <div th:include="fragments/components::bootstrap_script"/>

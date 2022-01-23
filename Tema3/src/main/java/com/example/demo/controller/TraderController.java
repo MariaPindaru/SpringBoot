@@ -126,4 +126,11 @@ public class TraderController {
 
         return "trader/traderViewProducts";
     }
+
+    @GetMapping("/update")
+    public String updateProducts(Model model, Principal principal) {
+
+
+        return "trader/traderUpdateStock";
+    }
 }
