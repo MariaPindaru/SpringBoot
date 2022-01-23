@@ -4,23 +4,23 @@
 <body>
 <div th:replace="fragments/components::menu_client"></div>
 
-<div class="container mt-1">
+<div class="container mt-1" style="width: 40%;">
     <div class="shadow p-3 mb-5 bg-body rounded">
         <h2 class="form-heading text-center">Orders</h2>
         <table class="table table-striped">
             <thead>
             <tr>
                 <th> Date</th>
-                <th> Price </th>
+                <th> Total price </th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${orders.isEmpty()}">
                 <td colspan="2"> No Orders Available</td>
             </tr>
-            <tr th:each="product : ${products}">
-                <td><span th:text="${orders?.date}"> Date </span></td>
-                <td><span th:text="${product?.id}"> Trader </span></td>
+            <tr th:each="order : ${orders}">
+                <td><span th:text="${order?.date}"> Date </span></td>
+                <td><span th:text="${order?.totalPrice}"> Total price </span></td>
             </tr>
             </tbody>
         </table>

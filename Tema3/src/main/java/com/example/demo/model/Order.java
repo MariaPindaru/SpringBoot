@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +24,8 @@ public class Order {
 
     @Getter @Setter
     private Date date;
+
+    @Getter @Setter
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ProductOrder> productOrderSet;
 }

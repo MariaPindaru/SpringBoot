@@ -4,10 +4,13 @@ import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.dto.ProductTraderDto;
 import com.example.demo.model.Order;
+import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ProductProducer;
 import com.example.demo.model.ProductTrader;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+
+import java.util.List;
 
 public class Utils {
 
@@ -46,12 +49,17 @@ public class Utils {
         return modelMapper.map(productTrader, ProductTraderDto.class);
     }
 
-    public static OrderDto convertToOrderDto(Order order, ModelMapper modelMapper) {
+    public static OrderDto convertToOrderDto(Order order, List<ProductOrder> productOrderList, ModelMapper modelMapper) {
 
         TypeMap<Order, OrderDto> propertyMapper = modelMapper.getTypeMap(Order.class, OrderDto.class);
 
         if (propertyMapper == null) {
             propertyMapper = modelMapper.createTypeMap(Order.class, OrderDto.class);
+
+            propertyMapper.addMappings(mapper -> {
+                mapper.map(src -> productOrderList.stream().map(po -> po.getQuantity() * po.getProductTrader().getProductProducer().getPrice()).mapToDouble(Double::doubleValue).sum(),
+                        OrderDto::setTotalPrice);
+            });
         }
 
         return modelMapper.map(order, OrderDto.class);

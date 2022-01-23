@@ -22,4 +22,9 @@ public class ProductOrder {
 
     @Getter @Setter
     private Long quantity;
+
+    @Getter @Setter
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private Order order;
 }

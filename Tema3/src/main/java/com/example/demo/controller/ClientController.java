@@ -4,9 +4,11 @@ import com.example.demo.Utils.Utils;
 import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.ProductTraderDto;
 import com.example.demo.model.Order;
+import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ProductTrader;
 import com.example.demo.model.User;
 import com.example.demo.service.OrderService;
+import com.example.demo.service.ProductOrderService;
 import com.example.demo.service.ProductTraderService;
 import com.example.demo.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -27,12 +29,14 @@ public class ClientController {
     private final ProductTraderService productTraderService;
     private final UserService userService;
     private final OrderService orderService;
+    private final ProductOrderService productOrderService;
     private ModelMapper modelMapper;
 
-    public ClientController(ProductTraderService productTraderService, UserService userService, OrderService orderService, ModelMapper modelMapper) {
+    public ClientController(ProductTraderService productTraderService, UserService userService, OrderService orderService, ProductOrderService productOrderService, ModelMapper modelMapper) {
         this.productTraderService = productTraderService;
         this.userService = userService;
         this.orderService = orderService;
+        this.productOrderService = productOrderService;
         this.modelMapper = modelMapper;
     }
 
@@ -63,7 +67,7 @@ public class ClientController {
         List<Order> orders = orderService.getAllOrdersByUser(user);
 
         List<OrderDto> list = orders.stream()
-                .map(o -> Utils.convertToOrderDto(o, modelMapper))
+                .map(o -> Utils.convertToOrderDto(o, productOrderService.getAllOrdersByOrder(o),modelMapper))
                 .collect(Collectors.toList());
 
         model.addAttribute("orders", list);
