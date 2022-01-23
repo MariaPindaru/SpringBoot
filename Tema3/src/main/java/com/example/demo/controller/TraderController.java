@@ -14,7 +14,6 @@ import com.example.demo.service.StockService;
 import com.example.demo.service.UserService;
 import com.example.demo.validator.ProductTraderValidator;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +54,7 @@ public class TraderController {
 
     @GetMapping("/dashboard")
     public ModelAndView traderDashboard() {
-        return new ModelAndView("traderDashboard");
+        return new ModelAndView("trader/traderDashboard");
     }
 
     @GetMapping("/add")
@@ -82,7 +81,7 @@ public class TraderController {
         if (!model.containsAttribute("productTraderCreationDto"))
             model.addAttribute("productTraderCreationDto", new ProductTraderCreationDto());
 
-        return "traderAddProduct";
+        return "trader/traderAddProduct";
     }
 
     @PostMapping("/add")
@@ -92,7 +91,7 @@ public class TraderController {
         productTraderValidator.validate(creationObject, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "traderAddProduct";
+            return "trader/traderAddProduct";
         }
 
         User user = userService.findByUsername(principal.getName());
@@ -125,6 +124,6 @@ public class TraderController {
 
         model.addAttribute("products", list);
 
-        return "traderViewProducts";
+        return "trader/traderViewProducts";
     }
 }

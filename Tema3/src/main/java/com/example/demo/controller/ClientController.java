@@ -2,11 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.Utils.Utils;
 import com.example.demo.dto.OrderDto;
-import com.example.demo.dto.ProductTraderCreationDto;
 import com.example.demo.dto.ProductTraderDto;
 import com.example.demo.dto.SearchFiltersDto;
 import com.example.demo.model.Order;
-import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ProductTrader;
 import com.example.demo.model.User;
 import com.example.demo.service.OrderService;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,7 +43,7 @@ public class ClientController {
 
     @GetMapping("/dashboard")
     public ModelAndView clientDashboard() {
-        return new ModelAndView("clientDashboard");
+        return new ModelAndView("client/clientDashboard");
     }
 
     @GetMapping("/products")
@@ -61,7 +58,7 @@ public class ClientController {
         model.addAttribute("products", list);
         model.addAttribute("searchFilters", new SearchFiltersDto());
 
-        return "clientViewProducts";
+        return "client/clientViewProducts";
     }
 
     @GetMapping("/orders")
@@ -77,7 +74,7 @@ public class ClientController {
 
         model.addAttribute("orders", list);
 
-        return "clientViewOrders";
+        return "client/clientViewOrders";
     }
 
     @GetMapping(path = "/search")
@@ -103,6 +100,12 @@ public class ClientController {
 
         model.addAttribute("products", list);
 
-        return "clientViewProducts";
+        return "client/clientViewProducts";
+    }
+
+    @GetMapping(path = "/cart")
+    public String cart(Model model) {
+
+        return "client/clientCart";
     }
 }

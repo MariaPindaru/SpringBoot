@@ -11,6 +11,6 @@ public class ProducerController {
 
     @GetMapping("/dashboard")
     public ModelAndView producerDashboard() {
-        return new ModelAndView("producerDashboard");
+        return new ModelAndView("producer/producerDashboard");
     }
 }
