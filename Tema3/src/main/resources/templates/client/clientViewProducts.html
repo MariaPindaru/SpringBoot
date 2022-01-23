@@ -55,48 +55,49 @@
         </div>
 
         <div class="row" style="margin-top: 20px">
-            <form th:action="@{/addToCart}" method="post">
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-                    <div th:each="product, i: ${products}">
-                        <input name="id" th:value="${product.id}" type="hidden">
 
-                        <div class="card" style="margin: 10px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+                <div th:each="product, i: ${products}">
 
-                            <div class="card-body">
 
-                                <h5 lass="card-title form-control" th:text="${product.productName}"> Product name </h5>
+                    <div class="card" style="margin: 10px;">
 
-                                <p class="card-text" th:text="${'trader: ' +product.trader}">Trader</p>
-                                <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
-                                <p class="card-text" th:text="${'quantity available: ' +product.quantity}">Price</p>
+                        <div class="card-body">
 
-                                <div class="row">
+                            <h5 lass="card-title form-control" th:text="${product.productName}"> Product name </h5>
+
+                            <p class="card-text" th:text="${'trader: ' +product.trader}">Trader</p>
+                            <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
+                            <p class="card-text" th:text="${'quantity available: ' +product.quantity}">Price</p>
+
+                            <div class="row">
+                                <form th:action="@{/addToCart}" method="post">
+                                    <input name="id" th:value="${product.id}" type="hidden">
                                     <div class="column">
                                         <div class="form-floating">
                                             <input id="quantity"
                                                    name="quantity"
+                                                   min="1"
                                                    type="number"
-                                                   value="1"
-                                                   class="form-control"
-                                                   placeholder="1"/>
+                                                   class="form-control"/>
                                             <label for="quantity">Quantity</label>
                                         </div>
                                     </div>
                                     <div class="column" style="margin-top: 10px;">
                                         <button type="submit" class="btn btn-primary">Buy</button>
                                     </div>
-                                </div>
-
+                                </form>
                             </div>
 
                         </div>
 
                     </div>
-            </form>
+
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <div th:include="fragments/components::bootstrap_script"/>

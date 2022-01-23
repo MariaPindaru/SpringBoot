@@ -2,8 +2,8 @@ package com.example.demo.dto;
 
 public class SearchFiltersDto {
     private String keyword;
-    private Double rangeMin;
-    private Double rangeMax;
+    private Long rangeMin;
+    private Long rangeMax;
 
     public SearchFiltersDto() {
     }
@@ -16,19 +16,19 @@ public class SearchFiltersDto {
         this.keyword = keyword;
     }
 
-    public Double getRangeMin() {
+    public Long getRangeMin() {
         return rangeMin;
     }
 
-    public void setRangeMin(Double rangeMin) {
+    public void setRangeMin(Long rangeMin) {
         this.rangeMin = rangeMin;
     }
 
-    public Double getRangeMax() {
+    public Long getRangeMax() {
         return rangeMax;
     }
 
-    public void setRangeMax(Double rangeMax) {
+    public void setRangeMax(Long rangeMax) {
         this.rangeMax = rangeMax;
     }
 }

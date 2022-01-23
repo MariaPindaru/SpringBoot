@@ -18,15 +18,15 @@ public class Stock {
 
     @Getter
     @Setter
-    private Double maxQuantity;
+    private Long maxQuantity;
 
     @Getter
     @Setter
-    private Double minQuantity;
+    private Long minQuantity;
 
     @Getter
     @Setter
-    private Double quantity;
+    private Long quantity;
 
 
 }

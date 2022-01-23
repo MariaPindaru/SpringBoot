@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 public class CartProductDto {
     private Long id;
-    private Double quantity;
+    private Long quantity;
 
     public CartProductDto() {
     }
@@ -15,11 +15,11 @@ public class CartProductDto {
         this.id = id;
     }
 
-    public Double getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 }

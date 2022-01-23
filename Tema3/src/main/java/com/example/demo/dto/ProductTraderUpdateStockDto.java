@@ -5,9 +5,9 @@ public class ProductTraderUpdateStockDto {
     private String producer;
     private String productName;
     private Double price;
-    private Double quantity;
-    private Double maxQuantity;
-    private Double minQuantity;
+    private Long quantity;
+    private Long maxQuantity;
+    private Long minQuantity;
 
     public ProductTraderUpdateStockDto() {
 
@@ -45,27 +45,27 @@ public class ProductTraderUpdateStockDto {
         this.price = price;
     }
 
-    public Double getQuantity() {
+    public Long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Long quantity) {
         this.quantity = quantity;
     }
 
-    public Double getMaxQuantity() {
+    public Long getMaxQuantity() {
         return maxQuantity;
     }
 
-    public void setMaxQuantity(Double maxQuantity) {
+    public void setMaxQuantity(Long maxQuantity) {
         this.maxQuantity = maxQuantity;
     }
 
-    public Double getMinQuantity() {
+    public Long getMinQuantity() {
         return minQuantity;
     }
 
-    public void setMinQuantity(Double minQuantity) {
+    public void setMinQuantity(Long minQuantity) {
         this.minQuantity = minQuantity;
     }
 }

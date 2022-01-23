@@ -2,9 +2,9 @@ package com.example.demo.dto;
 
 public class ProductTraderCreationDto {
     private Long productProducerId;
-    private Double minQuantity;
-    private Double maxQuantity;
-    private Double buyQuantity;
+    private Long minQuantity;
+    private Long maxQuantity;
+    private Long buyQuantity;
 
     public ProductTraderCreationDto() {
     }
@@ -17,27 +17,27 @@ public class ProductTraderCreationDto {
         this.productProducerId = productProducerId;
     }
 
-    public Double getMinQuantity() {
+    public Long getMinQuantity() {
         return minQuantity;
     }
 
-    public void setMinQuantity(Double minQuantity) {
+    public void setMinQuantity(Long minQuantity) {
         this.minQuantity = minQuantity;
     }
 
-    public Double getMaxQuantity() {
+    public Long getMaxQuantity() {
         return maxQuantity;
     }
 
-    public void setMaxQuantity(Double maxQuantity) {
+    public void setMaxQuantity(Long maxQuantity) {
         this.maxQuantity = maxQuantity;
     }
 
-    public Double getBuyQuantity() {
+    public Long getBuyQuantity() {
         return buyQuantity;
     }
 
-    public void setBuyQuantity(Double buyQuantity) {
+    public void setBuyQuantity(Long buyQuantity) {
         this.buyQuantity = buyQuantity;
     }
 }
