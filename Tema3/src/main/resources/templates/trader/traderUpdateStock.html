@@ -10,9 +10,8 @@
 
         <div class="container" style="width: 50%; margin-top: 20px; margin-inside: 10px;">
 
-            <form th:action="@{/trader/updateStock}" th:object="${productTrader}" th:method="post">
+            <form th:action="@{/trader/updateProduct}" th:object="${productTrader}" th:method="post">
                 <div class="form-group">
-
                     <div class="form-floating mb-3">
                         <input id="productName"
                                name="productName"
@@ -34,7 +33,8 @@
                                class="form-control"
                                autofocus="true"/>
                         <label for="minQuantity">Min quantity</label>
-                        <span class="has-error" th:if="${#fields.hasErrors('minQuantity')}" th:errors="*{minQuantity}"></span>
+                        <span class="has-error" th:if="${#fields.hasErrors('minQuantity')}"
+                              th:errors="*{minQuantity}"></span>
 
                     </div>
 
@@ -46,7 +46,8 @@
                                class="form-control"
                                autofocus="true"/>
                         <label for="maxQuantity">Max quantity</label>
-                        <span class="has-error" th:if="${#fields.hasErrors('maxQuantity')}" th:errors="*{maxQuantity}"></span>
+                        <span class="has-error" th:if="${#fields.hasErrors('maxQuantity')}"
+                              th:errors="*{maxQuantity}"></span>
 
                     </div>
 
@@ -60,8 +61,11 @@
                                placeholder="quantity"
                                autofocus="true"/>
                         <label for="quantity">Quantity</label>
+                        <span class="has-error" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
 
                     </div>
+
+                    <input type="hidden" name="id" th:value="${productTrader.id}" id="id">
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button class="btn btn-primary btn-lg"

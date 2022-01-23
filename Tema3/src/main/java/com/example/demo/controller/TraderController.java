@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.Utils.Utils;
+import com.example.demo.components.validator.ProductTraderCreationValidator;
+import com.example.demo.components.validator.ProductTraderValidator;
 import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.dto.ProductTraderCreationDto;
 import com.example.demo.dto.ProductTraderDto;
@@ -12,7 +14,6 @@ import com.example.demo.service.ProductProducerService;
 import com.example.demo.service.ProductTraderService;
 import com.example.demo.service.StockService;
 import com.example.demo.service.UserService;
-import com.example.demo.components.validator.ProductTraderValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -39,16 +41,18 @@ public class TraderController {
     private final ProductProducerService productProducerService;
     private final UserService userService;
     private final StockService stockService;
+    private final ProductTraderCreationValidator productTraderCreationValidator;
     private final ProductTraderValidator productTraderValidator;
     private ModelMapper modelMapper;
 
     @Autowired
-    public TraderController(ProductTraderService productTraderService, ProductProducerService productProducerService, UserService userService, StockService stockService, ProductTraderValidator productTraderValidator, ModelMapper modelMapper) {
+    public TraderController(ProductTraderService productTraderService, ProductProducerService productProducerService, UserService userService, StockService stockService, ProductTraderCreationValidator productTraderValidator, ProductTraderValidator productTraderValidator1, ModelMapper modelMapper) {
         this.productTraderService = productTraderService;
         this.productProducerService = productProducerService;
         this.userService = userService;
         this.stockService = stockService;
-        this.productTraderValidator = productTraderValidator;
+        this.productTraderCreationValidator = productTraderValidator;
+        this.productTraderValidator = productTraderValidator1;
         this.modelMapper = modelMapper;
     }
 
@@ -88,7 +92,7 @@ public class TraderController {
     public String addNewProduct(Model model, @ModelAttribute("productTraderCreationDto") ProductTraderCreationDto creationObject,
                                 RedirectAttributes ra, BindingResult bindingResult, Principal principal) {
 
-        productTraderValidator.validate(creationObject, bindingResult);
+        productTraderCreationValidator.validate(creationObject, bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "trader/traderAddProduct";
@@ -131,7 +135,33 @@ public class TraderController {
     public String updateProducts(Model model, @ModelAttribute("id") Long id, Principal principal) {
 
         ProductTraderDto converted = Utils.convertToProductTraderUpdateStockDto(productTraderService.getProductById(id).get(), modelMapper);
-        model.addAttribute("productTrader", converted);
+
+        if (!model.containsAttribute("productTrader")) {
+            model.addAttribute("productTrader", converted);
+        }
         return "trader/traderUpdateStock";
+    }
+
+    @PostMapping("/updateProduct")
+    public String updateProducts(Model model, @ModelAttribute("productTrader") ProductTraderDto productTrader, RedirectAttributes redirectAttributes, BindingResult bindingResult, Principal principal) {
+
+        productTraderValidator.validate(productTrader, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("productTrader", productTrader);
+            return "redirect:/trader/updateProduct";
+        }
+
+        Optional<ProductTrader> productTraderToUpdate = productTraderService.getProductById(productTrader.getId());
+        if (productTraderToUpdate.isPresent()) {
+            Stock stock = productTraderToUpdate.get().getStock();
+            stock.setMaxQuantity(productTrader.getMaxQuantity());
+            stock.setMinQuantity(productTrader.getMinQuantity());
+            stock.setQuantity(productTrader.getQuantity());
+
+            stockService.save(stock);
+        }
+
+        return "redirect:/trader/all";
     }
 }

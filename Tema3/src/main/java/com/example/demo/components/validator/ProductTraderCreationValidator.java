@@ -1,12 +1,15 @@
 package com.example.demo.components.validator;
 
-import com.example.demo.dto.ProductTraderDto;
+import com.example.demo.dto.ProductTraderCreationDto;
+import com.example.demo.service.ProductTraderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class ProductTraderValidator  implements Validator {
+public class ProductTraderCreationValidator implements Validator {
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
@@ -14,9 +17,14 @@ public class ProductTraderValidator  implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        ProductTraderDto productTrader = (ProductTraderDto) target;
+        ProductTraderCreationDto productTrader = (ProductTraderCreationDto) target;
 
         boolean anyIsNull = false;
+
+        if (productTrader.getProductProducerId() == null) {
+            errors.rejectValue("productProducerId", "NotEmpty");
+            anyIsNull = true;
+        }
 
         if (productTrader.getMinQuantity() == null) {
             errors.rejectValue("minQuantity", "NotEmpty");
@@ -28,7 +36,7 @@ public class ProductTraderValidator  implements Validator {
             anyIsNull = true;
         }
 
-        if (productTrader.getQuantity() == null) {
+        if (productTrader.getBuyQuantity() == null) {
             errors.rejectValue("buyQuantity", "NotEmpty");
             anyIsNull = true;
         }
@@ -40,19 +48,19 @@ public class ProductTraderValidator  implements Validator {
         }
 
         if (productTrader.getMinQuantity() < 0 ) {
-            errors.rejectValue("minQuantity", "Quantity.minNegative");
+            errors.rejectValue("minQuantity", "Quantity.minnNegative");
         }
 
         if (productTrader.getMaxQuantity().equals(Double.MAX_VALUE)) {
             errors.rejectValue("maxQuantity", "Quantity.max");
         }
 
-        if (productTrader.getQuantity() < productTrader.getMinQuantity()) {
-            errors.rejectValue("quantity", "Quantity.buyLower");
+        if (productTrader.getBuyQuantity() < productTrader.getMinQuantity()) {
+            errors.rejectValue("buyQuantity", "Quantity.buyLower");
         }
 
-        if (productTrader.getQuantity() > productTrader.getMaxQuantity()) {
-            errors.rejectValue("quantity", "Quantity.buyGreater");
+        if (productTrader.getBuyQuantity() > productTrader.getMaxQuantity()) {
+            errors.rejectValue("buyQuantity", "Quantity.buyGreater");
         }
     }
 }
