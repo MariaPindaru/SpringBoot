@@ -4,26 +4,38 @@
 <body>
 <div th:replace="fragments/components::menu_client"></div>
 
-<div class="container mt-1" style="width: 40%;">
+<div class="container mt-1" style="width: 50%;">
     <div class="shadow p-3 mb-5 bg-body rounded">
-        <h2 class="form-heading text-center">Orders</h2>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th> Date</th>
-                <th> Total price </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${orders.isEmpty()}">
-                <td colspan="2"> No Orders Available</td>
-            </tr>
-            <tr th:each="order : ${orders}">
-                <td><span th:text="${order?.date}"> Date </span></td>
-                <td><span th:text="${order?.totalPrice}"> Total price </span></td>
-            </tr>
-            </tbody>
-        </table>
+        <h2 class="form-heading text-center">Order history</h2>
+
+        <div class="row" style="margin-top: 30px">
+            <div th:each="order, stat : ${orders}" class="col d-flex justify-content-center" >
+                <div class="card" style="width: 50%">
+
+                    <div class="card-body" >
+                        <h5 class="card-title" th:text="${'Order ' + order.orderId}"> Order </h5>
+
+                        <p class="card-text" th:text="${'date: ' + order.date}">Date</p>
+
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                            </tr>
+                            <tr th:each="instance  : ${order.productQuantity}">
+                                <td th:text="${instance.key}">Product</td>
+                                <td th:text="${instance.value}">Quantity</td>
+                            </tr>
+                        </table>
+
+                        <p class="card-text" th:text="${'total price: ' + order.totalPrice}">Price</p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

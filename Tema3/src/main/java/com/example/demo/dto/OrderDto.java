@@ -1,11 +1,13 @@
 package com.example.demo.dto;
 
 import java.util.Date;
+import java.util.Map;
 
 public class OrderDto {
     private Long orderId;
     private Date date;
     private Double totalPrice;
+    private Map<String, Long> productQuantity;
 
     public OrderDto() {
     }
@@ -32,5 +34,13 @@ public class OrderDto {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Map<String, Long> getProductQuantity() {
+        return productQuantity;
+    }
+
+    public void setProductQuantity(Map<String, Long> productQuantity) {
+        this.productQuantity = productQuantity;
     }
 }
