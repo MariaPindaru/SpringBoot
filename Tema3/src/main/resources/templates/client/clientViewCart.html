@@ -22,7 +22,7 @@
                             <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
 
                             <div class="row">
-                                <form th:action="@{/addToCart}" method="post">
+                                <form th:action="@{/updateProduct}" method="post">
                                     <input name="id" th:value="${product.id}" type="hidden">
                                     <input name="productName" th:value="${product.productName}" type="hidden">
                                     <input name="trader" th:value="${product.trader}" type="hidden">

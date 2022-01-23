@@ -1,6 +1,7 @@
 package com.example.demo.components.sesionObject;
 
 import com.example.demo.dto.CartProductDto;
+import com.example.demo.service.ProductTraderService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +14,18 @@ import java.util.Optional;
 @Scope("session")
 public class Cart {
     private List<CartProductDto> cartProducts;
+    private final ProductTraderService productTraderService;
 
-    public Cart() {
+    public Cart(ProductTraderService productTraderService) {
+        this.productTraderService = productTraderService;
         cartProducts = new ArrayList<>();
     }
 
     public void addToCart(CartProductDto productDto){
+
+        if(productDto.getQuantity() == null || productDto.getQuantity() <= 0) return;
+
+        if(productTraderService.getProductById(productDto.getId()).get().getStock().getQuantity() < productDto.getQuantity()) return;
 
         Optional<CartProductDto> cartProduct = cartProducts.stream().filter(o -> Objects.equals(o.getId(), productDto.getId())).findFirst();
         if(cartProduct.isPresent()){
@@ -28,6 +35,19 @@ public class Cart {
         }
 
         cartProducts.add(productDto);
+    }
+
+    public void updateProduct(CartProductDto productDto){
+
+        if(productDto.getQuantity() == null || productDto.getQuantity() <= 0) return;
+
+        if(productTraderService.getProductById(productDto.getId()).get().getStock().getQuantity() < productDto.getQuantity()) return;
+
+        Optional<CartProductDto> cartProduct = cartProducts.stream().filter(o -> Objects.equals(o.getId(), productDto.getId())).findFirst();
+
+        if(cartProduct.isPresent()){
+           cartProduct.get().setQuantity(productDto.getQuantity());
+        }
     }
 
     public List<CartProductDto> getCartProducts() {

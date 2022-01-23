@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.components.sesionObject.Cart;
 import com.example.demo.dto.CartProductDto;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,15 @@ public class CartController {
 
         return "redirect:/client/products";
     }
+
+    @PostMapping("/updateProduct")
+    public String updateProduct (Model model, @ModelAttribute("product") CartProductDto product) {
+
+        cart.updateProduct(product);
+
+        return "redirect:/viewCart";
+    }
+
 
     @GetMapping("/viewCart")
     public String viewCart(Model model, RedirectAttributes redirectAttributes) {

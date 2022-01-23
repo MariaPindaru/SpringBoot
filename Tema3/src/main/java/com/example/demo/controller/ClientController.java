@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -92,7 +93,7 @@ public class ClientController {
         }
 
         if(filters.getRangeMax() != null){
-            products = products.stream().filter(o -> o.getProductProducer().getPrice() < filters.getRangeMin()).toList();
+            products = products.stream().filter(o -> o.getProductProducer().getPrice() < filters.getRangeMax()).toList();
         }
 
         List<ProductTraderDto> list = products.stream()
@@ -109,4 +110,5 @@ public class ClientController {
 
         return "client/clientViewCart";
     }
+
 }
