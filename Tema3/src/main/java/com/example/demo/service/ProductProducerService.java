@@ -7,6 +7,7 @@ import com.example.demo.model.ProductTrader;
 import java.util.List;
 
 public interface ProductProducerService {
+
     public List<ProductProducer> getAllProducerProducts();
 
     public ProductProducer getProductProducerById(Long id);

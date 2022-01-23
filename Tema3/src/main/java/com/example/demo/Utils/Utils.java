@@ -1,7 +1,9 @@
 package com.example.demo.Utils;
 
+import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.dto.ProductTraderDto;
+import com.example.demo.model.Order;
 import com.example.demo.model.ProductProducer;
 import com.example.demo.model.ProductTrader;
 import org.modelmapper.ModelMapper;
@@ -42,5 +44,16 @@ public class Utils {
         }
 
         return modelMapper.map(productTrader, ProductTraderDto.class);
+    }
+
+    public static OrderDto convertToOrderDto(Order order, ModelMapper modelMapper) {
+
+        TypeMap<Order, OrderDto> propertyMapper = modelMapper.getTypeMap(Order.class, OrderDto.class);
+
+        if (propertyMapper == null) {
+            propertyMapper = modelMapper.createTypeMap(Order.class, OrderDto.class);
+        }
+
+        return modelMapper.map(order, OrderDto.class);
     }
 }
