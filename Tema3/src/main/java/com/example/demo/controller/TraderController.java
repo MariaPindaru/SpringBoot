@@ -12,7 +12,7 @@ import com.example.demo.service.ProductProducerService;
 import com.example.demo.service.ProductTraderService;
 import com.example.demo.service.StockService;
 import com.example.demo.service.UserService;
-import com.example.demo.validator.ProductTraderValidator;
+import com.example.demo.components.validator.ProductTraderValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

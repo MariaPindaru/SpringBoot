@@ -57,6 +57,7 @@ public class ClientController {
 
         model.addAttribute("products", list);
         model.addAttribute("searchFilters", new SearchFiltersDto());
+        model.addAttribute("productToBuy", new ProductTraderDto());
 
         return "client/clientViewProducts";
     }

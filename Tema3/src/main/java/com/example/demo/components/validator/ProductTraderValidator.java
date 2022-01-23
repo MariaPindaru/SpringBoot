@@ -1,13 +1,10 @@
-package com.example.demo.validator;
+package com.example.demo.components.validator;
 
 import com.example.demo.dto.ProductTraderCreationDto;
-import com.example.demo.model.ProductTrader;
-import com.example.demo.model.Stock;
 import com.example.demo.service.ProductTraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component

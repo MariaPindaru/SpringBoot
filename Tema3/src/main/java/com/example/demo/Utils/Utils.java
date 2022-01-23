@@ -54,9 +54,14 @@ public class Utils {
 
     public static OrderDto convertToOrderDto(Order order, List<ProductOrder> productOrderList, ModelMapper modelMapper) {
 
-        Double totalPrice = productOrderList.stream().map(po -> po.getQuantity() * po.getProductTrader().getProductProducer().getPrice()).mapToDouble(Double::doubleValue).sum();
+        Double totalPrice = productOrderList
+                .stream()
+                .map(po -> po.getQuantity() * po.getProductTrader().getProductProducer().getPrice()).mapToDouble(Double::doubleValue).sum();
+
         Map<String, Long> productQuantityMap =
-                productOrderList.stream().collect(Collectors.toMap(o -> o.getProductTrader().getProductProducer().getProduct().getName(), o-> o.getQuantity()));
+                productOrderList
+                        .stream()
+                        .collect(Collectors.toMap(o -> o.getProductTrader().getProductProducer().getProduct().getName(), o-> o.getQuantity()));
 
         TypeMap<Order, OrderDto> propertyMapper = modelMapper.getTypeMap(Order.class, OrderDto.class);
 
