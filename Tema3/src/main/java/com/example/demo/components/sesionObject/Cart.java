@@ -20,10 +20,10 @@ public class Cart {
 
     public void addToCart(CartProductDto productDto){
 
-        Optional<CartProductDto> cardProduct = cartProducts.stream().filter(o -> Objects.equals(o.getId(), productDto.getId())).findFirst();
-        if(cardProduct.isPresent()){
-            Long prevQuantity = cardProduct.get().getQuantity();
-            cartProducts.remove(cardProduct.get());
+        Optional<CartProductDto> cartProduct = cartProducts.stream().filter(o -> Objects.equals(o.getId(), productDto.getId())).findFirst();
+        if(cartProduct.isPresent()){
+            Long prevQuantity = cartProduct.get().getQuantity();
+            cartProducts.remove(cartProduct.get());
             productDto.setQuantity(productDto.getQuantity() + prevQuantity);
         }
 

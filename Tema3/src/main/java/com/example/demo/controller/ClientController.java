@@ -107,6 +107,6 @@ public class ClientController {
     @GetMapping(path = "/cart")
     public String cart(Model model) {
 
-        return "client/clientCart";
+        return "client/clientViewCart";
     }
 }

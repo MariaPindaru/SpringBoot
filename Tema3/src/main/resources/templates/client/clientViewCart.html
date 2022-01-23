@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head th:include="fragments/components::header">
 <body>
+<div th:replace="fragments/components::menu_client"></div>
+
+<div class="container mt-1" style="align-content: center; width: 50%">
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <h2 class="form-heading text-center">Cart</h2>
+
+        <div class="row" style="margin-top: 20px">
+            <div style="display: grid; grid-template-columns: 1fr; align-content: center">
+                <div th:each="product, i: ${cartProducts}" class="col d-flex justify-content-center">
+
+                    <div class="card" style="margin: 10px; width: 60%">
+
+                        <div class="card-body">
+
+                            <h5 lass="card-title form-control" th:text="${product.productName}"> Product name </h5>
+
+                            <p class="card-text" th:text="${'trader: ' +product.trader}">Trader</p>
+                            <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
+
+                            <div class="row">
+                                <form th:action="@{/addToCart}" method="post">
+                                    <input name="id" th:value="${product.id}" type="hidden">
+                                    <input name="productName" th:value="${product.productName}" type="hidden">
+                                    <input name="trader" th:value="${product.trader}" type="hidden">
+                                    <input name="price" th:value="${product.price}" type="hidden">
+
+                                    <div class="row">
+                                        <div class="column" style="width: 60%;">
+                                            <div class="form-floating">
+                                                <input id="quantity"
+                                                       name="quantity"
+                                                       min="1"
+                                                       th:value="${product.quantity}"
+                                                       type="number"
+                                                       class="form-control"/>
+                                                <label for="quantity">Quantity</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="column">
+                                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary">
+                                                Update quantity
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                            <p class="card-text" th:text="${'total: ' +product.totalCost}">Total price</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 2fr 1fr;">
+
+
+                    <h3 class="card-text" th:text="${'total cost: ' + totalCost}">Total price</h3>
+                    <form th:action="@{/client/placeOrder}" method="post">
+                        <button style="margin-top: 10px;" class="btn btn-primary" type="submit">Place order</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+<div th:include="fragments/components::bootstrap_script"/>
 
 </body>
 </html>

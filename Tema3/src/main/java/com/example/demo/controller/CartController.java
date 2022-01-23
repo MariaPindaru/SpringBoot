@@ -29,8 +29,11 @@ public class CartController {
     @GetMapping("/viewCart")
     public String viewCart(Model model, RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute("cardProducts", cart.getCartProducts());
+        Double total = cart.getCartProducts().stream().map(o -> o.getTotalCost()).mapToDouble(Double::doubleValue).sum();
 
-        return "client/clientViewCart";
+        redirectAttributes.addFlashAttribute("cartProducts", cart.getCartProducts());
+        redirectAttributes.addFlashAttribute("totalCost", total);
+
+        return "redirect:/client/cart";
     }
 }

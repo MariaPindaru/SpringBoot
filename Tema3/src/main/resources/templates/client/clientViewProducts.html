@@ -74,6 +74,10 @@
                             <div class="row">
                                 <form th:action="@{/addToCart}" method="post">
                                     <input name="id" th:value="${product.id}" type="hidden">
+                                    <input name="productName" th:value="${product.productName}" type="hidden">
+                                    <input name="trader" th:value="${product.trader}" type="hidden">
+                                    <input name="price" th:value="${product.price}" type="hidden">
+
                                     <div class="column">
                                         <div class="form-floating">
                                             <input id="quantity"
@@ -85,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="column" style="margin-top: 10px;">
-                                        <button type="submit" class="btn btn-primary">Buy</button>
+                                        <button type="submit" class="btn btn-primary">Add to cart</button>
                                     </div>
                                 </form>
                             </div>
