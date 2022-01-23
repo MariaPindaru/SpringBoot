@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductTraderServiceImpl implements ProductTraderService {
@@ -27,6 +28,11 @@ public class ProductTraderServiceImpl implements ProductTraderService {
     @Override
     public List<ProductTrader> getProductsByTraderId(Long id) {
         return this.productTraderRepository.findAllByUserId(id);
+    }
+
+    @Override
+    public Optional<ProductTrader> getProductById(Long id) {
+        return this.productTraderRepository.findById(id);
     }
 
     @Override

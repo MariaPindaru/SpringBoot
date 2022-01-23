@@ -7,6 +7,7 @@
 <div class="container mt-1">
     <div class="shadow p-3 mb-5 bg-body rounded">
         <h2 class="form-heading text-center">Products</h2>
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -22,14 +23,27 @@
                 <td colspan="2"> No Receipts Available</td>
             </tr>
             <tr th:each="product : ${products}">
+
                 <td><span th:text="${product?.productName}"> Name </span></td>
                 <td><span th:text="${product?.trader}"> Trader </span></td>
                 <td><span th:text="${product?.quantity}"> Current quantity </span></td>
                 <td><span th:text="${product?.maxQuantity}"> Max quantity </span></td>
                 <td><span th:text="${product?.minQuantity}"> Min quantity </span></td>
+                <td>
+                    <form th:action="@{/trader/updateProduct}" method="get">
+                        <input type="hidden" id="id" name="id" th:value="${product.id}">
+                        <button class="btn btn-primary"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                                type="submit">
+                            Edit
+                        </button>
+                    </form>
+
+                </td>
             </tr>
             </tbody>
         </table>
+
     </div>
 </div>
 

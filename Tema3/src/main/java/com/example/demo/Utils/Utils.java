@@ -3,6 +3,7 @@ package com.example.demo.Utils;
 import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.dto.ProductTraderDto;
+import com.example.demo.dto.ProductTraderUpdateStockDto;
 import com.example.demo.model.Order;
 import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ProductProducer;
@@ -45,6 +46,25 @@ public class Utils {
                 mapper.map(src -> src.getStock().getQuantity(), ProductTraderDto::setQuantity);
                 mapper.map(src -> src.getStock().getMaxQuantity(), ProductTraderDto::setMaxQuantity);
                 mapper.map(src -> src.getStock().getMinQuantity(), ProductTraderDto::setMinQuantity);
+            });
+        }
+
+        return modelMapper.map(productTrader, ProductTraderDto.class);
+    }
+
+    public static ProductTraderDto convertToProductTraderUpdateStockDto(ProductTrader productTrader, ModelMapper modelMapper) {
+
+        TypeMap<ProductTrader, ProductTraderUpdateStockDto> propertyMapper = modelMapper.getTypeMap(ProductTrader.class, ProductTraderUpdateStockDto.class);
+
+        if (propertyMapper == null) {
+            propertyMapper = modelMapper.createTypeMap(ProductTrader.class, ProductTraderUpdateStockDto.class);
+            propertyMapper.addMappings(mapper -> {
+                mapper.map(src -> src.getProductProducer().getProducer().getName(), ProductTraderUpdateStockDto::setProducer);
+                mapper.map(src -> src.getProductProducer().getProduct().getName(), ProductTraderUpdateStockDto::setProductName);
+                mapper.map(src -> src.getProductProducer().getPrice(), ProductTraderUpdateStockDto::setPrice);
+                mapper.map(src -> src.getStock().getQuantity(), ProductTraderUpdateStockDto::setQuantity);
+                mapper.map(src -> src.getStock().getMaxQuantity(), ProductTraderUpdateStockDto::setMaxQuantity);
+                mapper.map(src -> src.getStock().getMinQuantity(), ProductTraderUpdateStockDto::setMinQuantity);
             });
         }
 

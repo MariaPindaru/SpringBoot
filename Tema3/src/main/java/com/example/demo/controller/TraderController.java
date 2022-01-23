@@ -127,10 +127,11 @@ public class TraderController {
         return "trader/traderViewProducts";
     }
 
-    @GetMapping("/update")
-    public String updateProducts(Model model, Principal principal) {
+    @GetMapping("/updateProduct")
+    public String updateProducts(Model model, @ModelAttribute("id") Long id, Principal principal) {
 
-
+        ProductTraderDto converted = Utils.convertToProductTraderUpdateStockDto(productTraderService.getProductById(id).get(), modelMapper);
+        model.addAttribute("productTrader", converted);
         return "trader/traderUpdateStock";
     }
 }

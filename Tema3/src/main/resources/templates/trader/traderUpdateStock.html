@@ -10,7 +10,69 @@
 
         <div class="container" style="width: 50%; margin-top: 20px; margin-inside: 10px;">
 
+            <form th:action="@{/trader/updateStock}" th:object="${productTrader}" th:method="post">
+                <div class="form-group">
 
+                    <div class="form-floating mb-3">
+                        <input id="productName"
+                               name="productName"
+                               type="text"
+                               disabled="true"
+                               th:value="${productTrader.productName}"
+                               class="form-control"
+                               placeholder="Min quantity"
+                               autofocus="true"/>
+                        <label for="productName">Product name</label>
+                    </div>
+
+
+                    <div class="form-floating mb-3">
+                        <input id="minQuantity"
+                               name="minQuantity"
+                               type="number"
+                               th:value="${productTrader.minQuantity}"
+                               class="form-control"
+                               autofocus="true"/>
+                        <label for="minQuantity">Min quantity</label>
+                        <span class="has-error" th:if="${#fields.hasErrors('minQuantity')}" th:errors="*{minQuantity}"></span>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input id="maxQuantity"
+                               name="maxQuantity"
+                               type="number"
+                               th:value="${productTrader.maxQuantity}"
+                               class="form-control"
+                               autofocus="true"/>
+                        <label for="maxQuantity">Max quantity</label>
+                        <span class="has-error" th:if="${#fields.hasErrors('maxQuantity')}" th:errors="*{maxQuantity}"></span>
+
+                    </div>
+
+
+                    <div class="form-floating mb-3">
+                        <input id="quantity"
+                               name="quantity"
+                               type="number"
+                               class="form-control"
+                               th:value="${productTrader.quantity}"
+                               placeholder="quantity"
+                               autofocus="true"/>
+                        <label for="quantity">Quantity</label>
+
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;"
+                                type="submit">
+                            Update stock
+                        </button>
+
+                    </div>
+                </div>
+            </form>
 
         </div>
     </div>
