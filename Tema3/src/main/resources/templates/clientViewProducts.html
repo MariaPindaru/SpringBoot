@@ -9,7 +9,7 @@
         <h2 class="form-heading text-center">Products</h2>
 
         <div class="container" style="width: 50%; margin-top: 20px; margin-inside: 10px; align-items: center">
-            <form th:action="@{/client/search}" method="get">
+            <form th:action="@{/client/search}" th:object="${searchFilters}" method="get">
                 <h4>Filter products</h4>
                 <div class="row">
 
@@ -22,7 +22,7 @@
 
                 <div class="row" style="align-items: center; margin: 5px">
                     <div class="col">
-                        <label> Price range </label>
+                        <h6> Price range </h6>
                     </div>
 
                     <div class="col">
@@ -31,6 +31,7 @@
                                    name="rangeMin"
                                    type="number"
                                    class="form-control"
+                                   th:value="${min}"
                                    placeholder="0"/>
                             <label for="rangeMin">min</label>
                         </div>
@@ -41,6 +42,7 @@
                             <input id="rangeMax"
                                    name="rangeMax"
                                    type="number"
+                                   th:value="${max}"
                                    class="form-control" p
                                    placeholder="100"/>
                             <label for="rangeMax">max</label>
@@ -83,25 +85,6 @@
                 </div>
             </div>
         </div>
-        <!--        <table class="table table-striped">-->
-        <!--            <thead>-->
-        <!--            <tr>-->
-        <!--                <th> Name</th>-->
-        <!--                <th> Trader</th>-->
-        <!--                <th> Price</th>-->
-        <!--            </tr>-->
-        <!--            </thead>-->
-        <!--            <tbody>-->
-        <!--            <tr th:if="${products.isEmpty()}">-->
-        <!--                <td colspan="2"> No Products Available</td>-->
-        <!--            </tr>-->
-        <!--            <tr th:each="product : ${products}">-->
-        <!--                <td><span th:text="${product?.productName}"> Name </span></td>-->
-        <!--                <td><span th:text="${product?.trader}"> Trader </span></td>-->
-        <!--                <td><span th:text="${product?.quantity}"> Current quantity </span></td>-->
-        <!--            </tr>-->
-        <!--            </tbody>-->
-        <!--        </table>-->
     </div>
 </div>
 

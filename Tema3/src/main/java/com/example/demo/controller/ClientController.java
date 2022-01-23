@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.Utils.Utils;
 import com.example.demo.dto.OrderDto;
+import com.example.demo.dto.ProductTraderCreationDto;
 import com.example.demo.dto.ProductTraderDto;
+import com.example.demo.dto.SearchFiltersDto;
 import com.example.demo.model.Order;
 import com.example.demo.model.ProductOrder;
 import com.example.demo.model.ProductTrader;
@@ -15,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,6 +59,7 @@ public class ClientController {
                 .collect(Collectors.toList());
 
         model.addAttribute("products", list);
+        model.addAttribute("searchFilters", new SearchFiltersDto());
 
         return "clientViewProducts";
     }
@@ -77,11 +81,22 @@ public class ClientController {
     }
 
     @GetMapping(path = "/search")
-    public String searchProduct(Model model, String keyword) {
+    public String searchProduct(Model model, @ModelAttribute("searchFilters") SearchFiltersDto filters) {
+
         List<ProductTrader> products = productTraderService.getAllTraderProducts();
-        if(!keyword.isEmpty()) {
-            products = products.stream().filter(o -> o.getProductProducer().getProduct().getName().startsWith(keyword)).toList();
+
+        if(!filters.getKeyword().isEmpty()) {
+            products = products.stream().filter(o -> o.getProductProducer().getProduct().getName().startsWith(filters.getKeyword())).toList();
         }
+
+        if(filters.getRangeMin() != null){
+            products = products.stream().filter(o -> o.getProductProducer().getPrice() > filters.getRangeMin()).toList();
+        }
+
+        if(filters.getRangeMax() != null){
+            products = products.stream().filter(o -> o.getProductProducer().getPrice() < filters.getRangeMin()).toList();
+        }
+
         List<ProductTraderDto> list = products.stream()
                 .map(o -> Utils.convertToProductTraderDto(o, modelMapper))
                 .collect(Collectors.toList());
