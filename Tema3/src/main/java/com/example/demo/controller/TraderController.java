@@ -6,14 +6,8 @@ import com.example.demo.components.validator.ProductTraderValidator;
 import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.dto.ProductTraderCreationDto;
 import com.example.demo.dto.ProductTraderDto;
-import com.example.demo.model.ProductProducer;
-import com.example.demo.model.ProductTrader;
-import com.example.demo.model.Stock;
-import com.example.demo.model.User;
-import com.example.demo.service.ProductProducerService;
-import com.example.demo.service.ProductTraderService;
-import com.example.demo.service.StockService;
-import com.example.demo.service.UserService;
+import com.example.demo.model.*;
+import com.example.demo.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,10 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -39,6 +30,7 @@ public class TraderController {
 
     private final ProductTraderService productTraderService;
     private final ProductProducerService productProducerService;
+    private final ProductService productService;
     private final UserService userService;
     private final StockService stockService;
     private final ProductTraderCreationValidator productTraderCreationValidator;
@@ -46,9 +38,10 @@ public class TraderController {
     private ModelMapper modelMapper;
 
     @Autowired
-    public TraderController(ProductTraderService productTraderService, ProductProducerService productProducerService, UserService userService, StockService stockService, ProductTraderCreationValidator productTraderValidator, ProductTraderValidator productTraderValidator1, ModelMapper modelMapper) {
+    public TraderController(ProductTraderService productTraderService, ProductProducerService productProducerService, ProductService productService, UserService userService, StockService stockService, ProductTraderCreationValidator productTraderValidator, ProductTraderValidator productTraderValidator1, ModelMapper modelMapper) {
         this.productTraderService = productTraderService;
         this.productProducerService = productProducerService;
+        this.productService = productService;
         this.userService = userService;
         this.stockService = stockService;
         this.productTraderCreationValidator = productTraderValidator;
@@ -65,15 +58,26 @@ public class TraderController {
     public String addProduct(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
 
+        List<Product> products = productService.getAllProducts();
         List<ProductProducer> allProducts = productProducerService.getAllProducerProducts();
         List<ProductTrader> existingProducts = productTraderService.getProductsByTraderId(user.getId());
 
+        List<ProductProducer> cheapestProducts = new ArrayList<>();
+        for(Product product: products){
+            List<ProductProducer> productProducers = productProducerService.getAllProductProducerByProduct(product);
+
+            if(productProducers.isEmpty()) continue;
+
+            Collections.sort(productProducers, (p1, p2) -> p1.getPrice().compareTo(p1.getPrice()));
+            cheapestProducts.add(productProducers.get(0));
+        }
+
         List<ProductProducer> remainingProducts = new ArrayList<>();
-        for (ProductProducer pp : allProducts) {
+        for (ProductProducer productProducer : cheapestProducts) {
             if (existingProducts
                     .stream()
-                    .noneMatch(o -> Objects.equals(o.getProductProducer().getProduct().getId(), pp.getId()))) {
-                remainingProducts.add(pp);
+                    .noneMatch(o -> Objects.equals(o.getProductProducer().getProduct().getId(), productProducer.getId()))) {
+                remainingProducts.add(productProducer);
             }
         }
 
@@ -82,6 +86,7 @@ public class TraderController {
                 .collect(Collectors.toList());
 
         model.addAttribute("products", list);
+
         if (!model.containsAttribute("productTraderCreationDto"))
             model.addAttribute("productTraderCreationDto", new ProductTraderCreationDto());
 
@@ -90,12 +95,14 @@ public class TraderController {
 
     @PostMapping("/add")
     public String addNewProduct(Model model, @ModelAttribute("productTraderCreationDto") ProductTraderCreationDto creationObject,
-                                RedirectAttributes ra, BindingResult bindingResult, Principal principal) {
+                                RedirectAttributes redirectAttributes, BindingResult bindingResult, Principal principal) {
 
         productTraderCreationValidator.validate(creationObject, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "trader/traderAddProduct";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productTraderCreationDto", bindingResult);
+            redirectAttributes.addFlashAttribute("productTraderCreationDto", creationObject);
+            return "redirect:/trader/add";
         }
 
         User user = userService.findByUsername(principal.getName());

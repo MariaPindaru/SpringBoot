@@ -20,18 +20,20 @@
                                     th:text="${product?.productName + ' - ' + product?.producer + ' (' + product?.price + ')'}"></option>
                         </select>
                         <label for="min">Product</label>
-
                         <span class="has-error" th:if="${#fields.hasErrors('productProducerId')}" th:errors="*{productProducerId}"></span>
+
                     </div>
 
                     <div class="form-floating mb-3">
                         <input id="min"
                                name="minQuantity"
                                type="number"
+                               th:value="${productTraderCreationDto.minQuantity}"
                                class="form-control"
                                placeholder="Min quantity"
                                autofocus="true"/>
                         <label for="min">Min quantity</label>
+
                         <span class="has-error" th:if="${#fields.hasErrors('minQuantity')}" th:errors="*{minQuantity}"></span>
 
                     </div>
@@ -41,9 +43,11 @@
                                name="maxQuantity"
                                type="number"
                                class="form-control"
+                               th:value="${productTraderCreationDto.maxQuantity}"
                                placeholder="Max quantity"
                                autofocus="true"/>
                         <label for="max">Max quantity</label>
+
                         <span class="has-error" th:if="${#fields.hasErrors('maxQuantity')}" th:errors="*{maxQuantity}"></span>
 
                     </div>
@@ -54,9 +58,11 @@
                                name="buyQuantity"
                                type="number"
                                class="form-control"
+                               th:value="${productTraderCreationDto.buyQuantity}"
                                placeholder="Buy quantity"
                                autofocus="true"/>
                         <label for="max">Buy quantity</label>
+
                         <span class="has-error" th:if="${#fields.hasErrors('buyQuantity')}" th:errors="*{buyQuantity}"></span>
 
                     </div>
