@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,5 +74,20 @@ public class ClientController {
         model.addAttribute("orders", list);
 
         return "clientViewOrders";
+    }
+
+    @GetMapping(path = "/search")
+    public String searchProduct(Model model, String keyword) {
+        List<ProductTrader> products = productTraderService.getAllTraderProducts();
+        if(!keyword.isEmpty()) {
+            products = products.stream().filter(o -> o.getProductProducer().getProduct().getName().startsWith(keyword)).toList();
+        }
+        List<ProductTraderDto> list = products.stream()
+                .map(o -> Utils.convertToProductTraderDto(o, modelMapper))
+                .collect(Collectors.toList());
+
+        model.addAttribute("products", list);
+
+        return "clientViewProducts";
     }
 }

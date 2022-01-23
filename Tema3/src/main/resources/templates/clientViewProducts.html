@@ -4,28 +4,104 @@
 <body>
 <div th:replace="fragments/components::menu_client"></div>
 
-<div class="container mt-1">
+<div class="container mt-1" style="align-content: center;">
     <div class="shadow p-3 mb-5 bg-body rounded">
         <h2 class="form-heading text-center">Products</h2>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th> Name</th>
-                <th> Trader</th>
-                <th> Price </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${products.isEmpty()}">
-                <td colspan="2"> No Products Available</td>
-            </tr>
-            <tr th:each="product : ${products}">
-                <td><span th:text="${product?.productName}"> Name </span></td>
-                <td><span th:text="${product?.trader}"> Trader </span></td>
-                <td><span th:text="${product?.quantity}"> Current quantity </span></td>
-            </tr>
-            </tbody>
-        </table>
+
+        <div class="container" style="width: 50%; margin-top: 20px; margin-inside: 10px; align-items: center">
+            <form th:action="@{/client/search}" method="get">
+                <h4>Filter products</h4>
+                <div class="row">
+
+                    <div class="form-floating">
+                        <input id="keyword" type="text" class="form-control" name="keyword" th:value="${keyword}"
+                               placeholder="Find by name"/>
+                        <label for="keyword">Keyword</label>
+                    </div>
+                </div>
+
+                <div class="row" style="align-items: center; margin: 5px">
+                    <div class="col">
+                        <label> Price range </label>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-floating">
+                            <input id="rangeMin"
+                                   name="rangeMin"
+                                   type="number"
+                                   class="form-control"
+                                   placeholder="0"/>
+                            <label for="rangeMin">min</label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-floating">
+                            <input id="rangeMax"
+                                   name="rangeMax"
+                                   type="number"
+                                   class="form-control" p
+                                   placeholder="100"/>
+                            <label for="rangeMax">max</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Apply filters</button>
+            </form>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+            <div th:each="product, stat : ${products}" class="col-sm-4">
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.productName}"> Product name </h5>
+
+                        <p class="card-text" th:text="${'trader: ' +product.trader}">Trader</p>
+                        <p class="card-text" th:text="${'price: ' +product.price}">Price</p>
+                        <p class="card-text" th:text="${'quantity available: ' +product.quantity}">Price</p>
+
+                        <div class="row" style="width: 50%">
+                            <div class="column">
+                                <div class="form-floating">
+                                    <input id="quantity"
+                                           name="quantity"
+                                           type="number"
+                                           class="form-control"
+                                           placeholder="1"/>
+                                    <label for="quantity">Quantity</label>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <a href="#" class="btn btn-primary">Buy</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        <table class="table table-striped">-->
+        <!--            <thead>-->
+        <!--            <tr>-->
+        <!--                <th> Name</th>-->
+        <!--                <th> Trader</th>-->
+        <!--                <th> Price</th>-->
+        <!--            </tr>-->
+        <!--            </thead>-->
+        <!--            <tbody>-->
+        <!--            <tr th:if="${products.isEmpty()}">-->
+        <!--                <td colspan="2"> No Products Available</td>-->
+        <!--            </tr>-->
+        <!--            <tr th:each="product : ${products}">-->
+        <!--                <td><span th:text="${product?.productName}"> Name </span></td>-->
+        <!--                <td><span th:text="${product?.trader}"> Trader </span></td>-->
+        <!--                <td><span th:text="${product?.quantity}"> Current quantity </span></td>-->
+        <!--            </tr>-->
+        <!--            </tbody>-->
+        <!--        </table>-->
     </div>
 </div>
 
