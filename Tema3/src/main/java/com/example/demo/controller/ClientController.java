@@ -86,8 +86,6 @@ public class ClientController {
     @GetMapping(path = "/search")
     public String searchProduct(Model model, @ModelAttribute("searchFilters") SearchFiltersDto filters) {
 
-//         x = new SockJsWebSocketHandler("/websocket");
-
         List<ProductTrader> products = productTraderService.getAllTraderProducts();
 
         if(!filters.getKeyword().isEmpty()) {
