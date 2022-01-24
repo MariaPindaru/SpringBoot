@@ -60,12 +60,14 @@ public class Utils {
         if (propertyMapper == null) {
             propertyMapper = modelMapper.createTypeMap(ProductTrader.class, ProductTraderUpdateStockDto.class);
             propertyMapper.addMappings(mapper -> {
+                mapper.map(src->src.getId(), ProductTraderUpdateStockDto::setId);
                 mapper.map(src -> src.getProductProducer().getProducer().getName(), ProductTraderUpdateStockDto::setProducer);
                 mapper.map(src -> src.getProductProducer().getProduct().getName(), ProductTraderUpdateStockDto::setProductName);
                 mapper.map(src -> src.getProductProducer().getPrice(), ProductTraderUpdateStockDto::setPrice);
                 mapper.map(src -> src.getStock().getQuantity(), ProductTraderUpdateStockDto::setQuantity);
                 mapper.map(src -> src.getStock().getMaxQuantity(), ProductTraderUpdateStockDto::setMaxQuantity);
                 mapper.map(src -> src.getStock().getMinQuantity(), ProductTraderUpdateStockDto::setMinQuantity);
+                mapper.map(src -> src.isSubscription(), ProductTraderUpdateStockDto::setSubscription);
             });
         }
 

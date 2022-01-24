@@ -14,6 +14,7 @@ public class ProductTraderDto {
     private Long quantity;
     private Long maxQuantity;
     private Long minQuantity;
+    private boolean subscription;
 
     public ProductTraderDto() {
     }
@@ -27,6 +28,14 @@ public class ProductTraderDto {
         this.quantity = quantity;
         this.maxQuantity = maxQuantity;
         this.minQuantity = minQuantity;
+    }
+
+    public boolean isSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(boolean subscription) {
+        this.subscription = subscription;
     }
 
     public Long getId() {

@@ -8,9 +8,18 @@ public class ProductTraderUpdateStockDto {
     private Long quantity;
     private Long maxQuantity;
     private Long minQuantity;
+    private boolean subscription;
 
     public ProductTraderUpdateStockDto() {
 
+    }
+
+    public boolean isSubscription() {
+        return subscription;
+    }
+
+    public void setSubscription(boolean subscription) {
+        this.subscription = subscription;
     }
 
     public Long getId() {

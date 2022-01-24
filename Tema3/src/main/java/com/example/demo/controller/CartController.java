@@ -4,6 +4,7 @@ import com.example.demo.components.sesionObject.Cart;
 import com.example.demo.dto.CartProductDto;
 import com.example.demo.model.Order;
 import com.example.demo.model.ProductOrder;
+import com.example.demo.model.ProductTrader;
 import com.example.demo.model.User;
 import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductOrderService;
@@ -93,6 +94,11 @@ public class CartController {
         for (ProductOrder productOrder : productOrderList) {
             productOrder.setOrder(order);
             productOrderService.save(productOrder);
+
+            ProductTrader productTrader =  productOrder.getProductTrader();
+            if(productTrader.isSubscription()) {
+                productTraderService.handleStockChange(productTrader);
+            }
         }
 
         cart.clearCart();

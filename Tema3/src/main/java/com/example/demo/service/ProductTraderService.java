@@ -15,5 +15,7 @@ public interface ProductTraderService {
 
     public ProductTrader getProductByTraderNameAndProductName(String trader, String product);
 
+    public void handleStockChange(ProductTrader productTrader);
+
     public void save(ProductTrader productTrader);
 }

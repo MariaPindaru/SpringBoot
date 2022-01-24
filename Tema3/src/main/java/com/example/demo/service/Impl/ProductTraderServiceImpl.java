@@ -1,7 +1,9 @@
 package com.example.demo.service.Impl;
 
 import com.example.demo.dao.ProductTraderRepository;
+import com.example.demo.dao.StockRepository;
 import com.example.demo.model.ProductTrader;
+import com.example.demo.model.Stock;
 import com.example.demo.service.ProductTraderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +15,12 @@ import java.util.Optional;
 public class ProductTraderServiceImpl implements ProductTraderService {
 
     private final ProductTraderRepository productTraderRepository;
+    private final StockRepository stockRepository;
 
     @Autowired
-    public ProductTraderServiceImpl(ProductTraderRepository productTraderRepository) {
+    public ProductTraderServiceImpl(ProductTraderRepository productTraderRepository, StockRepository stockRepository) {
         this.productTraderRepository = productTraderRepository;
+        this.stockRepository = stockRepository;
     }
 
 
@@ -38,6 +42,16 @@ public class ProductTraderServiceImpl implements ProductTraderService {
     @Override
     public ProductTrader getProductByTraderNameAndProductName(String trader, String product) {
         return this.productTraderRepository.findByTraderNameAndProductName(trader, product);
+    }
+
+    @Override
+    public void handleStockChange(ProductTrader productTrader) {
+
+        Stock stock = productTrader.getStock();
+        if(stock.getQuantity() <= stock.getMinQuantity())
+            stock.setQuantity(stock.getMaxQuantity());
+
+        stockRepository.save(stock);
     }
 
     @Override

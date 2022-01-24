@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,6 +17,10 @@ public class ProductTrader {
     @Getter
     @Setter
     private Long id;
+
+    @Getter @Setter
+    @ColumnDefault("false")
+    private  boolean subscription;
 
     @Getter @Setter
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

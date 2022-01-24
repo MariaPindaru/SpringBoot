@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import ch.qos.logback.classic.net.SocketReceiver;
 import com.example.demo.Utils.Utils;
 import com.example.demo.dto.OrderDto;
 import com.example.demo.dto.ProductTraderDto;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.sockjs.client.SockJsClient;
+import org.springframework.web.socket.sockjs.transport.handler.SockJsWebSocketHandler;
 
+import java.net.Socket;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,6 +86,8 @@ public class ClientController {
     @GetMapping(path = "/search")
     public String searchProduct(Model model, @ModelAttribute("searchFilters") SearchFiltersDto filters) {
 
+//         x = new SockJsWebSocketHandler("/websocket");
+
         List<ProductTrader> products = productTraderService.getAllTraderProducts();
 
         if(!filters.getKeyword().isEmpty()) {
@@ -110,12 +116,6 @@ public class ClientController {
 
         return "client/clientViewCart";
     }
-
-//    @PostMapping(path = "/placeOrder")
-//    public String placeOrder(Model model, ) {
-//
-//        return "client/clientViewCart";
-//    }
 
 
 }

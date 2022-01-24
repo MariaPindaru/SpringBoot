@@ -63,10 +63,10 @@ public class TraderController {
         List<ProductTrader> existingProducts = productTraderService.getProductsByTraderId(user.getId());
 
         List<ProductProducer> cheapestProducts = new ArrayList<>();
-        for(Product product: products){
+        for (Product product : products) {
             List<ProductProducer> productProducers = productProducerService.getAllProductProducerByProduct(product);
 
-            if(productProducers.isEmpty()) continue;
+            if (productProducers.isEmpty()) continue;
 
             Collections.sort(productProducers, (p1, p2) -> p1.getPrice().compareTo(p1.getPrice()));
             cheapestProducts.add(productProducers.get(0));
@@ -141,9 +141,8 @@ public class TraderController {
     @GetMapping("/updateProduct")
     public String updateProducts(Model model, @ModelAttribute("id") Long id, Principal principal) {
 
-        ProductTraderDto converted = Utils.convertToProductTraderUpdateStockDto(productTraderService.getProductById(id).get(), modelMapper);
-
         if (!model.containsAttribute("productTrader")) {
+            ProductTraderDto converted = Utils.convertToProductTraderUpdateStockDto(productTraderService.getProductById(id).get(), modelMapper);
             model.addAttribute("productTrader", converted);
         }
         return "trader/traderUpdateStock";
@@ -155,18 +154,27 @@ public class TraderController {
         productTraderValidator.validate(productTrader, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("productTrader", productTrader);
-            return "redirect:/trader/updateProduct";
+            return "trader/traderUpdateStock";
         }
 
         Optional<ProductTrader> productTraderToUpdate = productTraderService.getProductById(productTrader.getId());
         if (productTraderToUpdate.isPresent()) {
+
             Stock stock = productTraderToUpdate.get().getStock();
             stock.setMaxQuantity(productTrader.getMaxQuantity());
             stock.setMinQuantity(productTrader.getMinQuantity());
             stock.setQuantity(productTrader.getQuantity());
-
             stockService.save(stock);
+
+            if (productTrader.isSubscription() != productTraderToUpdate.get().isSubscription()) {
+
+                productTraderToUpdate.get().setSubscription(productTrader.isSubscription());
+                productTraderService.save(productTraderToUpdate.get());
+
+                if (productTrader.isSubscription()) {
+                    productTraderService.handleStockChange(productTraderToUpdate.get());
+                }
+            }
         }
 
         return "redirect:/trader/all";

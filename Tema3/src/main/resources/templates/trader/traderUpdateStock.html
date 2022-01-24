@@ -56,7 +56,6 @@
                         <input id="quantity"
                                name="quantity"
                                type="number"
-                               min="1"
                                class="form-control"
                                th:value="${productTrader.quantity}"
                                placeholder="quantity"
@@ -66,7 +65,18 @@
 
                     </div>
 
+
+                    <input id="subscription"
+                           name="subscription"
+                           type="checkbox"
+                           th:checked="${productTrader.subscription}"
+                           autofocus="true"/>
+
+                    <label for="quantity">Subscript for automatic restocking</label>
+
+
                     <input type="hidden" name="id" th:value="${productTrader.id}" id="id">
+                    <input type="hidden" name="productName" th:value="${productTrader.productName}">
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button class="btn btn-primary btn-lg"
@@ -83,6 +93,6 @@
     </div>
 
     <div th:include="fragments/components::bootstrap_script"/>
-
+</div>
 </body>
 </html>
