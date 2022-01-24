@@ -76,6 +76,9 @@ public class CartController {
 
     @PostMapping(path = "/placeOrder")
     public String placeOrder(Model model, Principal principal) {
+
+        if(cart.getCartProducts().isEmpty()) return "redirect:/viewCart";
+
         User user = userService.findByUsername(principal.getName());
 
         Order order = new Order();
