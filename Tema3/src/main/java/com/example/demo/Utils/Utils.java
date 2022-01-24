@@ -26,6 +26,7 @@ public class Utils {
             propertyMapper.addMappings(mapper -> {
                 mapper.map(src -> src.getProducer().getName(), ProductProducerDto::setProducer);
                 mapper.map(src -> src.getProduct().getName(), ProductProducerDto::setProductName);
+                mapper.map(src -> src.getProduct().getCategory().getName(), ProductProducerDto::setCategory);
             });
         }
 

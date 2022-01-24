@@ -5,6 +5,7 @@ import com.example.demo.dto.ProductProducerDto;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductProducer;
 import com.example.demo.model.ProductTrader;
+import com.example.demo.model.User;
 import com.example.demo.service.ProductProducerService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
@@ -33,6 +34,11 @@ public class ProductProducerServiceImpl implements ProductProducerService {
     public ProductProducer getProductProducerById(Long id){
 
         return productProducerRepository.findProductProducerById(id);
+    }
+
+    @Override
+    public List<ProductProducer> getProductProducerByProducer(User user) {
+        return productProducerRepository.findProductProducerByProducer(user);
     }
 
     @Override

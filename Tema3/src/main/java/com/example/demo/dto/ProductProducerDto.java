@@ -5,6 +5,7 @@ public class ProductProducerDto {
     private String producer;
     private String productName;
     private Double price;
+    private String category;
 
     public ProductProducerDto() {
     }
@@ -39,5 +40,13 @@ public class ProductProducerDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
