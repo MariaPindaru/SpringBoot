@@ -21,6 +21,10 @@ public class Cart {
         cartProducts = new ArrayList<>();
     }
 
+    public void clearCart(){
+        cartProducts.clear();
+    }
+
     public void addToCart(CartProductDto productDto){
 
         if(productDto.getQuantity() == null || productDto.getQuantity() <= 0) return;
@@ -30,8 +34,12 @@ public class Cart {
         Optional<CartProductDto> cartProduct = cartProducts.stream().filter(o -> Objects.equals(o.getId(), productDto.getId())).findFirst();
         if(cartProduct.isPresent()){
             Long prevQuantity = cartProduct.get().getQuantity();
+
+            Long newQuantity = prevQuantity + productDto.getQuantity();
+            if(newQuantity > productTraderService.getProductById(productDto.getId()).get().getStock().getQuantity()) return;
+
             cartProducts.remove(cartProduct.get());
-            productDto.setQuantity(productDto.getQuantity() + prevQuantity);
+            productDto.setQuantity(newQuantity);
         }
 
         cartProducts.add(productDto);

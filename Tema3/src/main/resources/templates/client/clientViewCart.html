@@ -63,7 +63,7 @@
 
 
                     <h3 class="card-text" th:text="${'total cost: ' + totalCost}">Total price</h3>
-                    <form th:action="@{/client/placeOrder}" method="post">
+                    <form th:action="@{/placeOrder}" method="post">
                         <button style="margin-top: 10px;" class="btn btn-primary" type="submit">Place order</button>
                     </form>
                 </div>

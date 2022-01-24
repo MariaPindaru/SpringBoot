@@ -13,4 +13,7 @@ public interface ProductTraderRepository extends JpaRepository<ProductTrader, Lo
     List<ProductTrader> findAllByUserId(Long id);
 
    Optional<ProductTrader> findById(Long id);
+
+    @Query("SELECT t FROM ProductTrader t WHERE t.trader.name = ?1 AND t.productProducer.product.name = ?2" )
+    ProductTrader findByTraderNameAndProductName(String trader, String product);
 }

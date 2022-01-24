@@ -8,4 +8,6 @@ import java.util.List;
 public interface OrderService {
 
     public List<Order> getAllOrdersByUser(User user);
+
+    void save(Order order);
 }

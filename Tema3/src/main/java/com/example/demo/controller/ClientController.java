@@ -111,4 +111,11 @@ public class ClientController {
         return "client/clientViewCart";
     }
 
+//    @PostMapping(path = "/placeOrder")
+//    public String placeOrder(Model model, ) {
+//
+//        return "client/clientViewCart";
+//    }
+
+
 }

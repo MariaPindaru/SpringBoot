@@ -36,6 +36,11 @@ public class ProductTraderServiceImpl implements ProductTraderService {
     }
 
     @Override
+    public ProductTrader getProductByTraderNameAndProductName(String trader, String product) {
+        return this.productTraderRepository.findByTraderNameAndProductName(trader, product);
+    }
+
+    @Override
     public void save(ProductTrader productTrader) {
         this.productTraderRepository.save(productTrader);
     }

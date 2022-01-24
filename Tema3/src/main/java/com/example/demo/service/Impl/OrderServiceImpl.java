@@ -21,4 +21,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getAllOrdersByUser(User user) {
         return orderRepository.findAllByClient(user);
     }
+
+    @Override
+    public void save(Order order) {
+        orderRepository.save(order);
+    }
 }
