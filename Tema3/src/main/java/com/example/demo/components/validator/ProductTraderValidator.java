@@ -47,7 +47,7 @@ public class ProductTraderValidator  implements Validator {
             errors.rejectValue("maxQuantity", "Quantity.max");
         }
 
-        if (productTrader.getQuantity() < productTrader.getMinQuantity()) {
+        if (productTrader.getQuantity() != 0 && productTrader.getQuantity() < productTrader.getMinQuantity()) {
             errors.rejectValue("quantity", "Quantity.buyLower");
         }
 

@@ -49,7 +49,7 @@ public class Cart {
 
     public void updateProduct(CartProductDto productDto) {
 
-        if (productDto.getQuantity() == null || productDto.getQuantity() <= 0) return;
+        if (productDto.getQuantity() == null || productDto.getQuantity() < 0) return;
 
         if (productTraderService.getProductById(productDto.getId()).get().getStock().getQuantity() < productDto.getQuantity())
             return;
